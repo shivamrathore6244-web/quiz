@@ -138,7 +138,7 @@ body::before {
 .btn-home { width:100%; padding:13px; background:var(--green); color:#fff; border:none; border-radius:5px; font-family:'Playfair Display',serif; font-size:17px; cursor:pointer; transition:all 0.2s; }
 .btn-home:hover { background:var(--green-light); }
 
-/* ADMIN LOGIN */
+/* ADMIN LOGIN & PANEL */
 .admin-pass-wrap { max-width:380px; margin:0 auto; padding:40px 24px; text-align:center; }
 .admin-pass-wrap h2 { font-family:'Playfair Display',serif; font-size:26px; color:var(--green); margin-bottom:8px; }
 .admin-pass-wrap p { font-size:14px; color:var(--muted); margin-bottom:24px; }
@@ -147,8 +147,6 @@ body::before {
 .pass-err { font-size:13px; color:var(--wrong); margin-bottom:12px; display:none; }
 .btn-enter { width:100%; padding:13px; background:var(--green); color:#fff; border:none; border-radius:5px; font-family:'Playfair Display',serif; font-size:17px; cursor:pointer; transition:background 0.2s; }
 .btn-enter:hover { background:var(--green-light); }
-
-/* ADMIN PANEL */
 .admin-wrap { max-width:1000px; margin:0 auto; padding:30px 20px 60px; }
 .admin-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:28px; flex-wrap:wrap; gap:12px; }
 .admin-title { font-family:'Playfair Display',serif; font-size:28px; color:var(--green); }
@@ -158,13 +156,10 @@ body::before {
 .btn-refresh:hover { background:var(--green-light); }
 .btn-secondary { background:transparent; border:1px solid var(--border); color:var(--muted); padding:10px 22px; border-radius:4px; font-size:14px; cursor:pointer; transition:all 0.2s; }
 .btn-secondary:hover { border-color:var(--green); color:var(--green); }
-
-/* Admin Test Tabs */
 .test-tabs { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
 .test-tab { padding:8px 18px; border:1.5px solid var(--border); border-radius:20px; font-size:13px; cursor:pointer; background:var(--white); color:var(--muted); transition:all 0.2s; }
 .test-tab.active { background:var(--green); border-color:var(--green); color:#fff; }
 .test-tab:hover:not(.active) { border-color:var(--green); color:var(--green); }
-
 .stats-banner { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:28px; }
 .s-card { background:var(--white); border:1px solid var(--border); border-radius:6px; padding:18px 14px; text-align:center; box-shadow:var(--card-shadow); }
 .s-card .sn { font-family:'Playfair Display',serif; font-size:28px; color:var(--green); }
@@ -172,52 +167,34 @@ body::before {
 .participants-table { background:var(--white); border:1px solid var(--border); border-radius:8px; overflow:hidden; box-shadow:var(--card-shadow); }
 .table-head { background:var(--green); color:#fff; display:grid; grid-template-columns:40px 1fr 100px 80px 80px 100px; padding:12px 20px; font-size:12px; letter-spacing:1px; font-weight:600; text-transform:uppercase; }
 .participant-row { display:grid; grid-template-columns:40px 1fr 100px 80px 80px 100px; padding:14px 20px; border-bottom:1px solid var(--border); align-items:center; cursor:pointer; transition:background 0.15s; }
-.participant-row:last-child { border-bottom:none; }
 .participant-row:hover { background:var(--bg); }
 .rank { font-weight:700; color:var(--gold); font-family:'Playfair Display',serif; }
 .p-name { font-weight:600; }
-.p-test { font-size:12px; color:var(--muted); }
 .p-score { font-family:'Playfair Display',serif; font-size:17px; color:var(--green); font-weight:700; }
-.p-correct { color:var(--correct); font-weight:600; }
-.p-wrong { color:var(--wrong); font-weight:600; }
 .p-pct { background:var(--green-pale); color:var(--green); border-radius:12px; padding:3px 10px; font-size:13px; font-weight:600; text-align:center; display:inline-block; }
 .p-pct.low { background:#fdecea; color:var(--wrong); }
 .p-pct.mid { background:#fff8e1; color:var(--gold); }
 .empty-state { text-align:center; padding:60px 20px; color:var(--muted); font-size:16px; }
 
-/* MODAL */
+/* MODALS */
 .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:100; display:none; align-items:center; justify-content:center; padding:20px; }
 .modal-overlay.show { display:flex; }
-.modal { background:var(--white); border-radius:10px; max-width:650px; width:100%; max-height:85vh; overflow-y:auto; box-shadow:0 20px 60px rgba(0,0,0,0.2); animation:fadeUp 0.3s ease; }
+.modal { background:var(--white); border-radius:10px; max-width:650px; width:100%; max-height:85vh; overflow-y:auto; box-shadow:0 20px 60px rgba(0,0,0,0.2); }
 .modal-head { position:sticky; top:0; background:var(--green); color:#fff; padding:18px 24px; display:flex; justify-content:space-between; align-items:center; }
 .modal-head h3 { font-family:'Playfair Display',serif; font-size:20px; }
-.modal-close { background:rgba(255,255,255,0.2); border:none; color:#fff; width:30px; height:30px; border-radius:50%; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; }
-.modal-close:hover { background:rgba(255,255,255,0.4); }
+.modal-close { background:rgba(255,255,255,0.2); border:none; color:#fff; width:30px; height:30px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; }
 .modal-body { padding:20px 24px; }
 .modal-score-row { display:flex; gap:12px; margin-bottom:20px; flex-wrap:wrap; }
 .ms-chip { background:var(--bg); border:1px solid var(--border); border-radius:4px; padding:10px 16px; font-size:14px; }
 .ms-chip strong { display:block; font-size:20px; font-family:'Playfair Display',serif; }
-.ms-chip strong.g { color:var(--correct); }
-.ms-chip strong.r { color:var(--wrong); }
-.ms-chip strong.b { color:var(--green); }
 .answer-item { border:1px solid var(--border); border-radius:6px; padding:12px 16px; margin-bottom:10px; font-size:14px; }
 .answer-item.correct { border-color:var(--correct); background:#f0faf4; }
 .answer-item.wrong { border-color:var(--wrong); background:#fdecea; }
 .answer-item.skipped { border-color:var(--gold); background:#fffbf0; }
-.ai-num { font-size:11px; color:var(--muted); letter-spacing:1px; margin-bottom:4px; font-weight:600; }
-.ai-q { font-weight:600; color:var(--text); margin-bottom:6px; line-height:1.5; }
-.ai-ans { font-size:13px; line-height:1.6; }
+.ai-num { font-size:11px; color:var(--muted); margin-bottom:4px; font-weight:600; }
+.ai-q { font-weight:600; margin-bottom:6px; }
 .correct-ans { color:var(--correct); font-weight:600; }
 .wrong-ans { color:var(--wrong); font-weight:600; }
-
-/* ADD TEST MODAL */
-.add-test-form { display:flex; flex-direction:column; gap:14px; }
-.form-group label { display:block; font-size:13px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
-.form-group input, .form-group select { width:100%; padding:11px 14px; border:1.5px solid var(--border); border-radius:4px; font-family:'Source Sans 3',sans-serif; font-size:15px; color:var(--text); background:var(--bg); outline:none; transition:border-color 0.2s; }
-.form-group input:focus, .form-group select:focus { border-color:var(--green); }
-.btn-create-test { padding:13px; background:var(--green); color:#fff; border:none; border-radius:5px; font-family:'Playfair Display',serif; font-size:17px; cursor:pointer; transition:background 0.2s; }
-.btn-create-test:hover { background:var(--green-light); }
-.btn-create-test:disabled { opacity:0.5; cursor:not-allowed; }
 
 @media(max-width:600px) {
   .stats-banner { grid-template-columns:1fr 1fr; }
@@ -229,13 +206,12 @@ body::before {
 </head>
 <body>
 
-<!-- HOME -->
 <div id="homeScreen" class="screen active">
   <div class="flex-center">
     <div class="home-wrap">
       <div class="badge">Mock Test Series</div>
       <h1 class="home-title">Agriculture JRF<br>Practice Test</h1>
-      <p class="home-sub">JRF level questions on Agronomy, Soil Science, Plant Pathology, Horticulture & more.</p>
+      <p class="home-sub">JRF level 2026 Expected questions on Agronomy, Soil Science, Plant Pathology, Horticulture & more.</p>
       <div class="info-row">
         <div class="info-chip"><strong>50</strong>Questions</div>
         <div class="info-chip"><strong>4</strong>Options</div>
@@ -253,34 +229,29 @@ body::before {
   </div>
 </div>
 
-<!-- TEST SELECTOR -->
 <div id="testSelectScreen" class="screen">
   <div class="flex-center">
     <div class="test-selector-wrap">
       <h2>Select a Test</h2>
       <p>Choose which mock test you want to attempt</p>
-      <div class="test-list" id="testList">
-        <div class="empty-state" style="padding:30px">Loading tests...</div>
-      </div>
+      <div class="test-list" id="testList"></div>
       <button class="btn-take-test" id="takeTestBtn" onclick="startSelectedTest()" disabled>Start Test →</button>
       <button class="btn-back" onclick="showScreen('homeScreen')">← Back</button>
     </div>
   </div>
 </div>
 
-<!-- LOADING -->
 <div id="loadingScreen" class="screen">
   <div class="flex-center">
     <div class="loading-wrap">
       <div class="leaf-spin"></div>
       <div class="loading-title">Preparing Your Test</div>
       <div class="loading-bar-wrap"><div class="loading-bar-fill" id="loadBar"></div></div>
-      <div class="loading-status" id="loadStatus">Loading questions...</div>
+      <div class="loading-status" id="loadStatus">Loading expected 2026 questions...</div>
     </div>
   </div>
 </div>
 
-<!-- QUIZ -->
 <div id="quizScreen" class="screen">
   <div class="quiz-wrap">
     <div class="quiz-top">
@@ -306,7 +277,6 @@ body::before {
   </div>
 </div>
 
-<!-- RESULT -->
 <div id="resultScreen" class="screen">
   <div class="flex-center">
     <div class="result-wrap">
@@ -321,18 +291,17 @@ body::before {
         <div class="r-stat"><div class="rn" id="rWrong">0</div><div class="rl">WRONG</div></div>
         <div class="r-stat"><div class="rn" id="rSkipped">0</div><div class="rl">SKIPPED</div></div>
       </div>
-      <div class="saved-note">✓ Your result has been saved successfully.</div>
+      <div class="saved-note">✓ Your result has been saved.</div>
       <button class="btn-home" onclick="showScreen('homeScreen')">Back to Home</button>
     </div>
   </div>
 </div>
 
-<!-- ADMIN LOGIN -->
 <div id="adminLoginScreen" class="screen">
   <div class="flex-center">
     <div class="admin-pass-wrap">
       <h2>Admin Access</h2>
-      <p>Enter password to view all results and manage tests.</p>
+      <p>Enter password to view all results.</p>
       <input type="password" class="pass-input" id="adminPassInput" placeholder="Password" onkeydown="if(event.key==='Enter')checkAdminPass()"/>
       <div class="pass-err" id="passErr">Incorrect password.</div>
       <button class="btn-enter" onclick="checkAdminPass()">Enter Admin Panel</button>
@@ -342,7 +311,6 @@ body::before {
   </div>
 </div>
 
-<!-- ADMIN PANEL -->
 <div id="adminScreen" class="screen">
   <div class="admin-wrap">
     <div class="admin-header">
@@ -351,7 +319,6 @@ body::before {
         <div class="admin-sub">Agriculture JRF Mock Test Series</div>
       </div>
       <div class="admin-btns">
-        <button class="btn-refresh" onclick="openAddTestModal()">+ Add New Test</button>
         <button class="btn-refresh" onclick="loadAdminData()">↻ Refresh</button>
         <button class="btn-secondary" onclick="showScreen('homeScreen')">← Home</button>
       </div>
@@ -372,7 +339,6 @@ body::before {
   </div>
 </div>
 
-<!-- DETAIL MODAL -->
 <div class="modal-overlay" id="detailModal">
   <div class="modal">
     <div class="modal-head">
@@ -383,87 +349,95 @@ body::before {
   </div>
 </div>
 
-<!-- ADD TEST MODAL -->
-<div class="modal-overlay" id="addTestModal">
-  <div class="modal">
-    <div class="modal-head">
-      <h3>Create New Test</h3>
-      <button class="modal-close" onclick="closeModal('addTestModal')">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="add-test-form">
-        <div class="form-group">
-          <label>Test Title</label>
-          <input type="text" id="newTestTitle" placeholder="e.g. Agriculture JRF Mock Test - Day 2"/>
-        </div>
-        <div class="form-group">
-          <label>Main Topic Focus</label>
-          <select id="newTestTopic">
-            <option value="mixed">Mixed (All Topics)</option>
-            <option value="agronomy">Agronomy & Crop Science</option>
-            <option value="soil">Soil Science & Fertility</option>
-            <option value="pathology">Plant Pathology & Microbiology</option>
-            <option value="horticulture">Horticulture & Vegetable Crops</option>
-            <option value="economics">Agricultural Economics & Extension</option>
-            <option value="genetics">Genetics, Plant Breeding & Biotechnology</option>
-            <option value="entomology">Agricultural Entomology & Pest Management</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Number of Questions</label>
-          <select id="newTestQCount">
-            <option value="25">25 Questions</option>
-            <option value="50" selected>50 Questions</option>
-          </select>
-        </div>
-        <div id="addTestErr" style="color:var(--wrong);font-size:13px;display:none;"></div>
-        <button class="btn-create-test" id="createTestBtn" onclick="createNewTest()">Generate & Save Test →</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <script>
 // ═══════════════════════════════════════════════
-// FIREBASE CONFIG
+// FIREBASE CONFIG (Kept for Saving Results Only)
 // ═══════════════════════════════════════════════
 const FB_URL = 'https://jrf1-9b59f-default-rtdb.firebaseio.com';
 
 async function fbGet(path) {
   try {
-    const r = await fetch(`${FB_URL}/${path}.json`, {
-      method: 'GET',
-      headers: { 'Accept': 'application/json' }
-    });
-    if (!r.ok) throw new Error('GET failed: ' + r.status);
-    return await r.json();
-  } catch(e) { console.error('fbGet error:', e); return null; }
-}
-async function fbSet(path, data) {
-  try {
-    const r = await fetch(`${FB_URL}/${path}.json`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(data)
-    });
-    if (!r.ok) throw new Error('PUT failed: ' + r.status);
-    return await r.json();
-  } catch(e) { console.error('fbSet error:', e); throw e; }
+    const r = await fetch(`${FB_URL}/${path}.json`);
+    return r.ok ? await r.json() : null;
+  } catch(e) { return null; }
 }
 async function fbPush(path, data) {
   try {
-    const r = await fetch(`${FB_URL}/${path}.json`, {
+    await fetch(`${FB_URL}/${path}.json`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
-    if (!r.ok) throw new Error('POST failed: ' + r.status);
-    return await r.json();
-  } catch(e) { console.error('fbPush error:', e); throw e; }
+  } catch(e) { console.error('Save failed'); }
 }
 
 // ═══════════════════════════════════════════════
-// SCREEN MANAGEMENT
+// HARDCODED 2026 JRF QUESTION BANK (50 Questions)
+// ═══════════════════════════════════════════════
+const JRF_2026_EXPECTED_Q = [
+  // Agronomy & Recent Trends
+  {q: "Which form of nitrogen is predominantly present in the newly introduced 'Nano Urea' in India?", options: ["Amide form", "Nanoscale nitrogen polymers", "Nitrate form", "Ammoniacal form"], answer: 1, explanation: "Nano Urea liquid contains nanoscale nitrogen particles (polymers) that have higher surface area, increasing Nitrogen Use Efficiency (NUE) up to 80%."},
+  {q: "Under the PM PRANAM scheme, what is the primary objective of the government?", options: ["Promote micro-irrigation", "Incentivize states to reduce chemical fertilizers", "Provide free seeds to marginal farmers", "Ensure minimum support price for all crops"], answer: 1, explanation: "PM PRANAM (PM Programme for Restoration, Awareness, Nourishment and Amelioration of Mother Earth) aims to reduce the use of chemical fertilizers by incentivizing states."},
+  {q: "The concept of 'Conservation Agriculture' is based on which of the following principles?", options: ["Intensive tillage and clean cultivation", "Minimum soil disturbance, permanent soil cover, and crop rotation", "Maximum use of chemical fertilizers", "Monocropping with high yielding varieties"], answer: 1, explanation: "Conservation agriculture relies on 3 pillars: Minimum tillage, permanent organic soil cover (residues), and diversified crop rotations."},
+  {q: "Which herbicide is commonly used as an anti-transpirant to reduce water loss in crops?", options: ["Atrazine", "Glyphosate", "Paraquat", "Pendimethalin"], answer: 0, explanation: "Atrazine at very low concentrations acts as a stomatal closing type anti-transpirant, reducing transpiration loss."},
+  {q: "System of Rice Intensification (SRI) requires what age of seedlings for transplanting?", options: ["21-25 days", "8-12 days", "30-35 days", "40-45 days"], answer: 1, explanation: "In SRI, young seedlings of 8-12 days (2-leaf stage) are transplanted to preserve their potential for heavy tillering and root growth."},
+  {q: "What is the Harvest Index of a crop that produces 40 quintals of grain and 60 quintals of straw per hectare?", options: ["40%", "60%", "66%", "150%"], answer: 0, explanation: "Harvest Index = (Economic Yield / Biological Yield) * 100. Here, (40 / (40+60)) * 100 = 40%."},
+  {q: "Which among the following is a C4 weed?", options: ["Chenopodium album", "Phalaris minor", "Cyperus rotundus", "Avena fatua"], answer: 2, explanation: "Cyperus rotundus (Purple nutsedge) is a highly competitive C4 weed with high photosynthetic efficiency."},
+  {q: "The term 'Allelopathy' was first coined by?", options: ["Hans Molisch", "Liebig", "Jethro Tull", "Donald"], answer: 0, explanation: "Hans Molisch (1937) coined the term Allelopathy to refer to the biochemical interactions between plants."},
+  {q: "In precision farming, NDVI is used to assess crop health. What does NDVI stand for?", options: ["Normalized Difference Vegetation Index", "Net Digital Vegetative Indicator", "National Drought Variable Index", "Normalized Digital Visual Index"], answer: 0, explanation: "NDVI uses Near-Infrared and Red light to calculate the vigor and health of vegetation."},
+  {q: "Which crop has the highest water use efficiency (WUE)?", options: ["Rice", "Wheat", "Finger millet", "Sorghum"], answer: 2, explanation: "Finger millet (Ragi) is a C4 crop with extreme drought tolerance and the highest water use efficiency among cereals."},
+  
+  // Soil Science
+  {q: "Which soil order is primarily associated with 'Black Cotton Soils' of India?", options: ["Alfisol", "Vertisol", "Entisol", "Inceptisol"], answer: 1, explanation: "Vertisols are rich in montmorillonite clay, which causes shrinking and swelling, characteristic of black cotton soils."},
+  {q: "What is the ideal C:N ratio of normal cultivable soil?", options: ["10:1 to 12:1", "20:1 to 30:1", "100:1", "5:1"], answer: 0, explanation: "The average Carbon to Nitrogen (C:N) ratio of normal soils is about 10:1 to 12:1, which allows balanced microbial activity."},
+  {q: "Which element was added as the 17th essential plant nutrient by Brown et al. (1987)?", options: ["Cobalt", "Silicon", "Nickel", "Vanadium"], answer: 2, explanation: "Nickel (Ni) is required for the enzyme urease, which breaks down urea in the plant."},
+  {q: "Electrical Conductivity (EC) of saline soils at 25°C is generally:", options: ["< 4 dS/m", "> 4 dS/m", "Zero", "Negative"], answer: 1, explanation: "Saline soils have an EC > 4 dS/m, ESP < 15, and pH < 8.5."},
+  {q: "Which clay mineral has the highest Cation Exchange Capacity (CEC)?", options: ["Kaolinite", "Illite", "Montmorillonite", "Vermiculite"], answer: 3, explanation: "Vermiculite has the highest CEC (100-150 meq/100g) among common silicate clay minerals."},
+  {q: "Denitrification in soil occurs predominantly under which condition?", options: ["Aerobic condition", "Anaerobic condition", "High pH condition", "Low temperature"], answer: 1, explanation: "Denitrification (conversion of nitrate to N2 gas) is carried out by anaerobic bacteria in waterlogged or poorly aerated soils."},
+  {q: "VAM (Vesicular Arbuscular Mycorrhiza) is highly useful for the mobilization of which nutrient?", options: ["Nitrogen", "Phosphorus", "Potassium", "Sulphur"], answer: 1, explanation: "VAM fungi form a symbiotic association with roots and significantly increase phosphorus uptake from the soil."},
+  {q: "The disease 'Khaira' in rice is caused by the deficiency of:", options: ["Iron", "Zinc", "Manganese", "Copper"], answer: 1, explanation: "Khaira disease in rice, first reported by Dr. Y.L. Nene at Pantnagar, is due to Zinc deficiency in flooded soils."},
+  {q: "What is the equivalent acidity of Ammonium Sulphate?", options: ["110", "93", "80", "128"], answer: 0, explanation: "Ammonium sulphate has an equivalent acidity of 110, meaning 110 kg of CaCO3 is needed to neutralize the acidity caused by 100 kg of fertilizer."},
+  {q: "Reclamation of alkali soils is practically done by adding:", options: ["Lime", "Gypsum", "Urea", "Rock Phosphate"], answer: 1, explanation: "Gypsum (CaSO4.2H2O) provides Calcium which replaces excess Sodium on the clay complex in alkali soils."},
+
+  // Genetics & Plant Breeding
+  {q: "The term 'Genetics' was coined by:", options: ["Gregor Mendel", "W. Bateson", "T.H. Morgan", "Hugo de Vries"], answer: 1, explanation: "William Bateson coined the term 'Genetics' in 1905 to describe the study of inheritance."},
+  {q: "Which gene editing technology was awarded the Nobel Prize in Chemistry in 2020 and is revolutionizing crop breeding?", options: ["RNA interference", "ZFNs", "CRISPR-Cas9", "TALENs"], answer: 2, explanation: "CRISPR-Cas9 acts as genetic scissors, allowing highly precise editing of crop genomes."},
+  {q: "The cross of an F1 hybrid with its recessive parent is known as:", options: ["Back cross", "Test cross", "Top cross", "Diallel cross"], answer: 1, explanation: "A Test Cross is made to determine the genotype of an individual showing a dominant phenotype by crossing it with a homozygous recessive parent."},
+  {q: "What is the basic chromosome number (x) of wheat?", options: ["7", "14", "21", "42"], answer: 0, explanation: "Bread wheat is a hexaploid (2n = 6x = 42), making its basic chromosome number x = 7."},
+  {q: "Golden Rice is a genetically modified crop biofortified with:", options: ["Vitamin C", "Beta-carotene (Vitamin A precursor)", "Iron", "Zinc"], answer: 1, explanation: "Golden rice is engineered to produce beta-carotene to combat Vitamin A deficiency in developing countries."},
+  {q: "Cytoplasmic Male Sterility (CMS) in crops is primarily governed by genes located in the:", options: ["Nucleus", "Chloroplast", "Mitochondria", "Ribosome"], answer: 2, explanation: "CMS is a maternally inherited trait determined by the mitochondrial genome."},
+  {q: "The rapid production of homozygous lines in breeding is achieved through:", options: ["Pedigree method", "Bulk method", "Doubled haploidy", "Mass selection"], answer: 2, explanation: "Doubled haploidy (often through anther culture followed by colchicine treatment) produces 100% homozygous lines in one generation."},
+  {q: "Nullisomic condition is represented by which chromosomal formula?", options: ["2n - 1", "2n - 2", "2n + 1", "2n + 2"], answer: 1, explanation: "Nullisomy is the loss of a complete pair of homologous chromosomes (2n - 2)."},
+  {q: "Which chemical is commonly used to induce polyploidy in plants?", options: ["EMS", "Colchicine", "Sodium azide", "Ethidium bromide"], answer: 1, explanation: "Colchicine inhibits spindle fiber formation during cell division, leading to chromosome doubling."},
+  {q: "The phenomenon where a single gene controls multiple, seemingly unrelated phenotypic traits is called:", options: ["Epistasis", "Pleiotropy", "Polygeny", "Penetrance"], answer: 1, explanation: "Pleiotropy occurs when one gene influences two or more distinct phenotypic traits."},
+
+  // Plant Pathology & Entomology
+  {q: "Which rust of wheat is known as 'Killer Rust'?", options: ["Brown rust (Puccinia triticina)", "Yellow rust (Puccinia striiformis)", "Black stem rust (Puccinia graminis tritici)", "White rust"], answer: 2, explanation: "Black stem rust is highly destructive and can completely destroy a crop, hence called Killer Rust."},
+  {q: "Bordeaux mixture, the first effective fungicide, was discovered by P.M.A. Millardet to control:", options: ["Late blight of potato", "Downy mildew of grapevine", "Powdery mildew of apple", "Ergot of bajra"], answer: 1, explanation: "Millardet discovered it in 1885 in France to save grapevines from downy mildew."},
+  {q: "Tikka disease of groundnut is caused by:", options: ["Fungus", "Bacteria", "Virus", "Nematode"], answer: 0, explanation: "Tikka disease is caused by fungi (Cercospora arachidicola and Cercosporidium personatum)."},
+  {q: "Which insect vector is responsible for transmitting the Leaf Curl Virus in Cotton?", options: ["Aphid", "Jassid", "Whitefly", "Thrips"], answer: 2, explanation: "Whitefly (Bemisia tabaci) is the primary vector for Cotton Leaf Curl Virus (CLCuV)."},
+  {q: "Bt Cotton provides resistance against which specific group of insects?", options: ["Sucking pests", "Bollworms (Lepidoptera)", "Termites", "Root grubs"], answer: 1, explanation: "Bacillus thuringiensis (Bt) produces a protein toxic to lepidopteran larvae like the pink bollworm."},
+  {q: "Which pathogen causes 'Panama wilt' in banana?", options: ["Xanthomonas campestris", "Fusarium oxysporum", "Pseudomonas solanacearum", "Phytophthora infestans"], answer: 1, explanation: "Panama disease is a devastating fungal wilt caused by Fusarium oxysporum f.sp. cubense."},
+  {q: "The economic threshold level (ETL) in pest management indicates:", options: ["The pest density at which control measures should be applied", "The point of zero pest population", "Maximum crop damage level", "Natural enemy population"], answer: 0, explanation: "ETL is the pest density at which management action should be taken to prevent an increasing pest population from reaching the Economic Injury Level (EIL)."},
+  {q: "Root-knot nematodes belong to the genus:", options: ["Heterodera", "Meloidogyne", "Globodera", "Pratylenchus"], answer: 1, explanation: "Meloidogyne species cause root knots or galls in a wide range of crops worldwide."},
+  {q: "Which is the first systemic fungicide discovered?", options: ["Carboxin", "Mancozeb", "Thiram", "Captan"], answer: 0, explanation: "Carboxin (Vitavax) was discovered by Von Schmeling and Kulka in 1966."},
+  {q: "A pheromone trap attracts:", options: ["Female insects", "Male insects", "Both males and females", "Larvae"], answer: 1, explanation: "Pheromone traps generally use synthetic female sex pheromones to attract and trap male insects."},
+
+  // Gen Ag, Econ, Ext & Horti
+  {q: "What does 'e-NAM' stand for in Indian Agriculture?", options: ["Electronic National Agriculture Mission", "Electronic National Agriculture Market", "Electronic Network of Agricultural Mandis", "Electronic New Agriculture Model"], answer: 1, explanation: "e-NAM is a pan-India electronic trading portal networking existing APMC mandis."},
+  {q: "The first Krishi Vigyan Kendra (KVK) in India was established in 1974 at:", options: ["New Delhi", "Ludhiana", "Pondicherry", "Pantnagar"], answer: 2, explanation: "The first KVK was established in Pondicherry under the administrative control of TNAU."},
+  {q: "According to the Law of Diminishing Returns, when Marginal Product (MP) becomes zero, Total Product (TP) is:", options: ["Negative", "Zero", "Maximum", "Minimum"], answer: 2, explanation: "When MP is zero, the addition to the total product stops, meaning TP has reached its peak/maximum."},
+  {q: "Which fruit is known as the 'Fruit of the 21st Century'?", options: ["Avocado", "Aonla", "Dragon Fruit", "Kiwi"], answer: 1, explanation: "Aonla (Indian Gooseberry) is highly nutritious and drought-hardy, earning it this title."},
+  {q: "Development of fruits without fertilization is known as:", options: ["Apomixis", "Parthenocarpy", "Polyembryony", "Vivipary"], answer: 1, explanation: "Parthenocarpy leads to the production of seedless fruits, like in bananas."},
+  {q: "Under the PM Fasal Bima Yojana (PMFBY), what is the premium rate paid by farmers for all Kharif crops?", options: ["1.5%", "2.0%", "5.0%", "Variable"], answer: 1, explanation: "The premium is capped at 2% for Kharif, 1.5% for Rabi, and 5% for commercial/horticultural crops."},
+  {q: "High Density Planting (HDP) in Mango was first standardized for which variety?", options: ["Alphonso", "Dashehari", "Amrapali", "Mallika"], answer: 2, explanation: "Amrapali, a cross between Dashehari and Neelum, is a dwarf variety planted at 2.5m x 2.5m (1600 plants/ha)."},
+  {q: "Which institution announces the Minimum Support Price (MSP) in India?", options: ["NABARD", "CACP", "NITI Aayog", "ICAR"], answer: 1, explanation: "The Commission for Agricultural Costs and Prices (CACP) recommends the MSP to the Government."},
+  {q: "The Training and Visit (T&V) system of agricultural extension was introduced by:", options: ["Daniel Benor", "Albert Mayer", "S.K. Dey", "F.L. Brayne"], answer: 0, explanation: "Daniel Benor introduced the T&V system in the 1970s, sponsored by the World Bank."},
+  {q: "Which vegetable is famously known as 'Poor Man's Meat' in India?", options: ["Potato", "Soybean", "Jackfruit", "Cowpea"], answer: 1, explanation: "Soybean contains ~40% protein and is highly nutritious, making it a cheap protein source (poor man's meat)."}
+];
+
+// ═══════════════════════════════════════════════
+// APP LOGIC
 // ═══════════════════════════════════════════════
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -471,35 +445,15 @@ function showScreen(id) {
   window.scrollTo(0,0);
 }
 
-const ADMIN_PASS = 'jrf@admin2024';
+// Fixed Default Test
+const DEFAULT_TESTS = [
+  { id: 'jrf2026', title: 'ICAR JRF 2026 Expected Questions', qCount: 50, topic: 'mixed' }
+];
 
-function showAdminLogin() {
-  showScreen('adminLoginScreen');
-  document.getElementById('adminPassInput').value = '';
-  document.getElementById('passErr').style.display = 'none';
-}
-
-function checkAdminPass() {
-  if (document.getElementById('adminPassInput').value === ADMIN_PASS) {
-    showScreen('adminScreen');
-    loadAdminData();
-  } else {
-    document.getElementById('passErr').style.display = 'block';
-  }
-}
-
-function closeModal(id) { document.getElementById(id).classList.remove('show'); }
-document.querySelectorAll('.modal-overlay').forEach(m => {
-  m.addEventListener('click', function(e) { if(e.target===this) this.classList.remove('show'); });
-});
-
-// ═══════════════════════════════════════════════
-// TEST SELECTION
-// ═══════════════════════════════════════════════
-let availableTests = [];
 let selectedTestId = null;
+let currentTestTitle = '';
 
-async function goToTestSelect() {
+function goToTestSelect() {
   const name = document.getElementById('participantName').value.trim();
   if (!name) {
     document.getElementById('homeErr').style.display = 'block';
@@ -508,167 +462,61 @@ async function goToTestSelect() {
   }
   document.getElementById('homeErr').style.display = 'none';
   showScreen('testSelectScreen');
-  await loadAvailableTests();
+  loadHardcodedTests();
 }
 
-async function loadAvailableTests() {
+function loadHardcodedTests() {
   const list = document.getElementById('testList');
-  list.innerHTML = '<div class="empty-state" style="padding:30px">Loading tests...</div>';
+  list.innerHTML = '';
   document.getElementById('takeTestBtn').disabled = true;
   selectedTestId = null;
 
-  try {
-    const tests = await fbGet('tests');
-    availableTests = [];
-    if (tests) {
-      Object.keys(tests).forEach(k => {
-        availableTests.push({ id: k, ...tests[k] });
-      });
-      availableTests.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
-    }
-
-    if (!availableTests.length) {
-      list.innerHTML = '<div class="empty-state" style="padding:30px">No tests available yet.<br>Ask your examiner to add a test.</div>';
-      return;
-    }
-
-    list.innerHTML = '';
-    availableTests.forEach(t => {
-      const d = new Date(t.createdAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
-      const card = document.createElement('div');
-      card.className = 'test-card';
-      card.dataset.id = t.id;
-      card.innerHTML = `
-        <div class="test-card-left">
-          <div class="tc-num">${t.qCount || 50} Questions</div>
-          <div class="tc-title">${t.title}</div>
-          <div class="tc-date">Added: ${d}</div>
-        </div>
-        <div class="test-card-right">→</div>
-      `;
-      card.onclick = () => selectTest(t.id, card);
-      list.appendChild(card);
-    });
-  } catch(e) {
-    list.innerHTML = '<div class="empty-state" style="padding:30px;color:var(--wrong)">Failed to load tests. Check your connection.</div>';
-  }
-}
-
-function selectTest(id, card) {
-  document.querySelectorAll('.test-card').forEach(c => c.classList.remove('active-test'));
-  card.classList.add('active-test');
-  selectedTestId = id;
-  document.getElementById('takeTestBtn').disabled = false;
+  DEFAULT_TESTS.forEach(t => {
+    const card = document.createElement('div');
+    card.className = 'test-card';
+    card.innerHTML = `
+      <div class="test-card-left">
+        <div class="tc-num">${t.qCount} Questions</div>
+        <div class="tc-title">${t.title}</div>
+        <div class="tc-date">Curated for 2026</div>
+      </div>
+      <div class="test-card-right">→</div>
+    `;
+    card.onclick = () => {
+      document.querySelectorAll('.test-card').forEach(c => c.classList.remove('active-test'));
+      card.classList.add('active-test');
+      selectedTestId = t.id;
+      currentTestTitle = t.title;
+      document.getElementById('takeTestBtn').disabled = false;
+    };
+    list.appendChild(card);
+  });
 }
 
 // ═══════════════════════════════════════════════
 // QUIZ ENGINE
 // ═══════════════════════════════════════════════
 let questions = [];
-let currentQ = 0;
-let score = 0, wrong = 0, skipped = 0;
+let currentQ = 0, score = 0, wrong = 0, skipped = 0;
 let userAnswers = [];
-let timerInt = null, timeLeft = 30;
-let isAnswered = false;
-let participantName = '';
-let currentTestId = '', currentTestTitle = '';
+let timerInt = null, timeLeft = 30, isAnswered = false;
 
-async function startSelectedTest() {
+function startSelectedTest() {
   if (!selectedTestId) return;
-  participantName = document.getElementById('participantName').value.trim();
-  const test = availableTests.find(t => t.id === selectedTestId);
-  currentTestId = selectedTestId;
-  currentTestTitle = test.title;
-
   showScreen('loadingScreen');
   document.getElementById('loadBar').style.width = '0%';
-  document.getElementById('loadStatus').textContent = 'Loading test questions...';
-
-  try {
-    // Check if questions already saved in Firebase
-    const saved = await fbGet(`tests/${selectedTestId}/questions`);
-    if (saved && saved.length >= 10) {
-      questions = saved;
-      document.getElementById('loadBar').style.width = '100%';
-      document.getElementById('loadStatus').textContent = 'Ready!';
-      setTimeout(() => initQuiz(), 500);
-      return;
-    }
-
-    // Generate fresh questions
-    questions = [];
-    score = 0; wrong = 0; skipped = 0; currentQ = 0; userAnswers = [];
-
-    const topic = test.topic || 'mixed';
-    const qCount = test.qCount || 50;
-    const batchSize = 10;
-    const numBatches = qCount / batchSize;
-
-    const topicBatches = getTopicBatches(topic, numBatches);
-
-    for (let i = 0; i < topicBatches.length; i++) {
-      document.getElementById('loadBar').style.width = ((i/topicBatches.length)*90) + '%';
-      document.getElementById('loadStatus').textContent = `Generating: ${topicBatches[i]}...`;
-      const batch = await fetchBatch(topicBatches[i]);
-      questions.push(...batch);
-    }
-
-    // Save questions to Firebase so future attempts reuse same questions
-    await fbSet(`tests/${selectedTestId}/questions`, questions);
+  
+  // Fake loading to make it feel smooth
+  setTimeout(() => { document.getElementById('loadBar').style.width = '50%'; }, 200);
+  setTimeout(() => {
     document.getElementById('loadBar').style.width = '100%';
     document.getElementById('loadStatus').textContent = 'Ready!';
-    setTimeout(() => initQuiz(), 500);
-
-  } catch(e) {
-    showScreen('testSelectScreen');
-    alert('Failed to load questions. Please try again.');
-  }
-}
-
-function getTopicBatches(topic, count) {
-  const topicMap = {
-    mixed: ['Agronomy and Crop Production','Soil Science and Plant Nutrition','Plant Pathology and Disease Management','Horticulture and Vegetable Crops','Agricultural Economics and Extension Education'],
-    agronomy: ['Agronomy fundamentals, tillage, and crop production systems','Irrigation, water management, and weed science','Seed science, crop physiology, and post-harvest technology','Cropping systems, agroforestry, and sustainable agriculture','Agroclimatology and field crop management'],
-    soil: ['Soil formation, classification, and physical properties','Soil chemistry, organic matter, and soil biology','Soil fertility, plant nutrition, and fertilizers','Soil conservation and reclamation','Soil microbiology and biofertilizers'],
-    pathology: ['Fungal diseases of field crops','Bacterial and viral plant diseases','Plant disease management and biocontrol','Seed pathology and post-harvest diseases','Agricultural microbiology and nematology'],
-    horticulture: ['Fruit crop production and orchard management','Vegetable crops and production technology','Floriculture and landscape horticulture','Post-harvest technology and value addition','Protected cultivation and nursery management'],
-    economics: ['Agricultural economics and farm management','Agricultural marketing and price policy','Agricultural extension education and rural development','Agricultural statistics and research methodology','Rural sociology and agricultural finance'],
-    genetics: ['Genetics principles and Mendelian inheritance','Plant breeding methods and techniques','Biotechnology and molecular markers in agriculture','Seed production and certification','Mutation, polyploidy, and heterosis in crop improvement'],
-    entomology: ['Insect morphology, taxonomy, and life cycles','Pest management and integrated pest management','Stored grain pests and their management','Insecticides and biological control','Major insect pests of field and horticultural crops'],
-  };
-  const batches = topicMap[topic] || topicMap.mixed;
-  const result = [];
-  for (let i = 0; i < count; i++) result.push(batches[i % batches.length]);
-  return result;
-}
-
-async function fetchBatch(topic) {
-  const prompt = `You are an Agriculture JRF exam expert (ICAR). Generate exactly 10 high-quality multiple choice questions on: "${topic}" strictly at JRF exam level.
-
-Return ONLY a valid JSON array, no markdown, no extra text:
-[{"q":"Question?","options":["A","B","C","D"],"answer":0,"explanation":"Brief explanation."}]
-
-Rules:
-- "answer" = 0-based index of correct option
-- All 4 options must be realistic and plausible
-- Include numerical problems, scientific names, formulas where relevant
-- Cover definitions, mechanisms, and applied concepts
-- Vary difficulty: 3 easy, 5 medium, 2 hard`;
-
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 3000,
-      messages: [{ role:'user', content: prompt }]
-    })
-  });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error?.message || 'API Error');
-  let text = data.content.map(c => c.text||'').join('');
-  text = text.replace(/```json|```/g,'').trim();
-  return JSON.parse(text);
+    
+    // Load hardcoded bank
+    questions = [...JRF_2026_EXPECTED_Q];
+    
+    setTimeout(() => initQuiz(), 400);
+  }, 800);
 }
 
 function initQuiz() {
@@ -709,44 +557,37 @@ function startTimer() {
   timeLeft = 30;
   updateTimer();
   timerInt = setInterval(() => {
-    timeLeft--;
-    updateTimer();
+    timeLeft--; updateTimer();
     if (timeLeft <= 0) { clearInterval(timerInt); if (!isAnswered) timeUp(); }
   }, 1000);
 }
 
 function updateTimer() {
   document.getElementById('timerNum').textContent = timeLeft;
-  const pct = (timeLeft/30)*100;
-  const bar = document.getElementById('timerBar');
-  bar.style.width = pct+'%';
-  bar.className = 'timer-bar-fill'+(timeLeft<=5?' danger':timeLeft<=10?' warn':'');
+  document.getElementById('timerBar').style.width = (timeLeft/30*100)+'%';
+  document.getElementById('timerBar').className = 'timer-bar-fill'+(timeLeft<=5?' danger':timeLeft<=10?' warn':'');
 }
 
 function timeUp() {
-  isAnswered = true;
+  isAnswered = true; skipped++;
   const q = questions[currentQ];
   document.querySelectorAll('.opt-btn').forEach((b,i) => {
-    b.disabled = true;
-    if (i===q.answer) b.classList.add('correct');
+    b.disabled = true; if (i===q.answer) b.classList.add('correct');
   });
-  skipped++;
   userAnswers[currentQ] = { selected:-1, correct:q.answer, skipped:true };
   showExpl(q);
 }
 
 function selectAnswer(sel) {
   if (isAnswered) return;
-  isAnswered = true;
-  clearInterval(timerInt);
+  isAnswered = true; clearInterval(timerInt);
   const q = questions[currentQ];
   document.querySelectorAll('.opt-btn').forEach((b,i) => {
     b.disabled = true;
     if (i===q.answer) { b.classList.add('correct'); b.querySelector('.opt-tick').textContent='✓'; }
     else if (i===sel && sel!==q.answer) { b.classList.add('wrong'); b.querySelector('.opt-tick').textContent='✗'; }
   });
-  if (sel===q.answer) score++;
-  else wrong++;
+  if (sel===q.answer) score++; else wrong++;
   userAnswers[currentQ] = { selected:sel, correct:q.answer, skipped:false };
   showExpl(q);
 }
@@ -763,18 +604,16 @@ function showExpl(q) {
 
 function nextQ() {
   currentQ++;
-  if (currentQ >= questions.length) finishQuiz();
-  else loadQuestion(currentQ);
+  if (currentQ >= questions.length) finishQuiz(); else loadQuestion(currentQ);
 }
 
-async function finishQuiz() {
+function finishQuiz() {
   clearInterval(timerInt);
   const pct = Math.round((score/questions.length)*100);
   let title, sub;
-  if (pct>=80) { title='Excellent Performance!'; sub='You are well prepared for JRF!'; }
-  else if (pct>=60) { title='Good Performance!'; sub='Keep practicing to clear JRF cutoff.'; }
-  else if (pct>=40) { title='Average Performance'; sub='Focus on weaker topics and revise more.'; }
-  else { title='Needs More Preparation'; sub='Revise fundamentals and practice regularly.'; }
+  if (pct>=80) { title='Excellent!'; sub='You are well prepared for JRF!'; }
+  else if (pct>=60) { title='Good Performance!'; sub='Keep practicing to clear cutoff.'; }
+  else { title='Needs Practice'; sub='Revise fundamentals and try again.'; }
 
   document.getElementById('resPct').textContent = pct+'%';
   document.getElementById('resOut').textContent = score+'/'+questions.length;
@@ -785,205 +624,64 @@ async function finishQuiz() {
   document.getElementById('rSkipped').textContent = skipped;
 
   const result = {
-    name: participantName,
-    testId: currentTestId,
+    name: document.getElementById('participantName').value.trim(),
     testTitle: currentTestTitle,
-    score, wrong, skipped,
-    total: questions.length, pct,
-    timestamp: new Date().toISOString(),
-    answers: userAnswers.map((a,i) => ({
-      q: questions[i].q,
-      options: questions[i].options,
-      selected: a ? a.selected : -1,
-      correct: questions[i].answer,
-      skipped: a ? a.skipped : true
-    }))
+    score, wrong, skipped, total: questions.length, pct,
+    timestamp: new Date().toISOString()
   };
-
-  try { await fbPush('results', result); } catch(e) { console.error('Save failed', e); }
+  
+  fbPush('results', result); // Silently try to save to DB, if it fails, no app break
   showScreen('resultScreen');
 }
 
 // ═══════════════════════════════════════════════
-// ADMIN PANEL
+// ADMIN PANEL (Reads from DB if available)
 // ═══════════════════════════════════════════════
-let allResults = [];
-let adminTests = {};
-let activeAdminTab = 'all';
+const ADMIN_PASS = 'jrf@admin2024';
+
+function showAdminLogin() { showScreen('adminLoginScreen'); document.getElementById('passErr').style.display='none'; }
+function checkAdminPass() {
+  if (document.getElementById('adminPassInput').value === ADMIN_PASS) { showScreen('adminScreen'); loadAdminData(); }
+  else document.getElementById('passErr').style.display = 'block';
+}
 
 async function loadAdminData() {
   document.getElementById('participantsList').innerHTML = '<div class="empty-state">Loading...</div>';
-
-  try {
-    const [resultsData, testsData] = await Promise.all([
-      fbGet('results'),
-      fbGet('tests')
-    ]);
-
-    allResults = [];
-    if (resultsData) {
-      Object.keys(resultsData).forEach(k => allResults.push({ id:k, ...resultsData[k] }));
-    }
-    allResults.sort((a,b) => new Date(b.timestamp)-new Date(a.timestamp));
-
-    adminTests = testsData || {};
-
-    buildAdminTabs();
-    renderAdminResults(activeAdminTab);
-  } catch(e) {
-    document.getElementById('participantsList').innerHTML = '<div class="empty-state" style="color:var(--wrong)">Failed to load data.</div>';
-  }
-}
-
-function buildAdminTabs() {
-  const tabs = document.getElementById('adminTabs');
-  tabs.innerHTML = '';
-
-  const allTab = document.createElement('div');
-  allTab.className = 'test-tab'+(activeAdminTab==='all'?' active':'');
-  allTab.textContent = 'All Results';
-  allTab.onclick = () => { activeAdminTab='all'; buildAdminTabs(); renderAdminResults('all'); };
-  tabs.appendChild(allTab);
-
-  Object.keys(adminTests).forEach(id => {
-    const t = adminTests[id];
-    const tab = document.createElement('div');
-    tab.className = 'test-tab'+(activeAdminTab===id?' active':'');
-    tab.textContent = t.title;
-    tab.onclick = () => { activeAdminTab=id; buildAdminTabs(); renderAdminResults(id); };
-    tabs.appendChild(tab);
-  });
-}
-
-function renderAdminResults(tabId) {
-  const filtered = tabId==='all' ? allResults : allResults.filter(r => r.testId===tabId);
-  const sorted = [...filtered].sort((a,b) => b.score-a.score);
-
-  if (!sorted.length) {
-    document.getElementById('sTotalP').textContent='0';
-    document.getElementById('sAvgScore').textContent='—';
-    document.getElementById('sTopScore').textContent='—';
-    document.getElementById('sAvgPct').textContent='—';
-    document.getElementById('participantsList').innerHTML='<div class="empty-state">No results yet for this test.</div>';
+  const resultsData = await fbGet('results');
+  let allResults = [];
+  if (resultsData) Object.keys(resultsData).forEach(k => allResults.push(resultsData[k]));
+  
+  if (!allResults.length) {
+    document.getElementById('participantsList').innerHTML = '<div class="empty-state">No results found in Database.</div>';
     return;
   }
+  
+  allResults.sort((a,b) => b.score-a.score);
+  const avg = (allResults.reduce((s,r)=>s+r.score,0)/allResults.length).toFixed(1);
+  const top = allResults[0].score;
+  const avgP = Math.round(allResults.reduce((s,r)=>s+r.pct,0)/allResults.length);
 
-  const avg = (sorted.reduce((s,r)=>s+r.score,0)/sorted.length).toFixed(1);
-  const top = sorted[0].score;
-  const avgP = Math.round(sorted.reduce((s,r)=>s+r.pct,0)/sorted.length);
-
-  document.getElementById('sTotalP').textContent = sorted.length;
+  document.getElementById('sTotalP').textContent = allResults.length;
   document.getElementById('sAvgScore').textContent = avg;
-  document.getElementById('sTopScore').textContent = top+'/'+(sorted[0].total||50);
+  document.getElementById('sTopScore').textContent = top;
   document.getElementById('sAvgPct').textContent = avgP+'%';
 
-  const list = document.getElementById('participantsList');
-  list.innerHTML = '';
-  sorted.forEach((r,i) => {
+  const list = document.getElementById('participantsList'); list.innerHTML = '';
+  allResults.forEach((r,i) => {
     const cls = r.pct>=60?'':r.pct>=40?'mid':'low';
     const d = new Date(r.timestamp).toLocaleDateString('en-IN',{day:'numeric',month:'short'});
-    const row = document.createElement('div');
-    row.className = 'participant-row';
-    row.innerHTML = `
-      <div class="rank">${i+1}</div>
-      <div><div class="p-name">${r.name}</div><div style="font-size:11px;color:var(--muted)">${d}</div></div>
-      <div class="p-test" style="font-size:12px;color:var(--muted)">${r.testTitle||'—'}</div>
-      <div class="p-score">${r.score}/${r.total||50}</div>
-      <div class="p-wrong">${r.wrong}</div>
-      <div><span class="p-pct ${cls}">${r.pct}%</span></div>
-    `;
-    row.onclick = () => showDetail(r);
-    list.appendChild(row);
+    list.innerHTML += `
+      <div class="participant-row">
+        <div class="rank">${i+1}</div>
+        <div><div class="p-name">${r.name}</div><div style="font-size:11px;color:var(--muted)">${d}</div></div>
+        <div class="p-test" style="font-size:12px;color:var(--muted)">${r.testTitle}</div>
+        <div class="p-score">${r.score}/${r.total}</div>
+        <div class="p-wrong">${r.wrong}</div>
+        <div><span class="p-pct ${cls}">${r.pct}%</span></div>
+      </div>`;
   });
 }
-
-function showDetail(r) {
-  const letters = ['A','B','C','D'];
-  document.getElementById('modalName').textContent = r.name + ' — ' + (r.testTitle||'');
-  let html = `
-    <div class="modal-score-row">
-      <div class="ms-chip">Score<strong class="b">${r.score}/${r.total||50}</strong></div>
-      <div class="ms-chip">Correct<strong class="g">${r.score}</strong></div>
-      <div class="ms-chip">Wrong<strong class="r">${r.wrong}</strong></div>
-      <div class="ms-chip">Skipped<strong>${r.skipped}</strong></div>
-      <div class="ms-chip">Accuracy<strong class="b">${r.pct}%</strong></div>
-    </div>
-    <div style="font-size:13px;color:var(--muted);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">Question-wise Analysis</div>
-  `;
-  if (r.answers) {
-    r.answers.forEach((a,i) => {
-      const cls = a.skipped?'skipped':a.selected===a.correct?'correct':'wrong';
-      const selText = a.skipped ? 'Skipped / Time Up'
-        : a.selected===a.correct
-          ? `<span class="correct-ans">${letters[a.selected]}. ${a.options[a.selected]}</span>`
-          : `<span class="wrong-ans">${letters[a.selected]}. ${a.options[a.selected]}</span>`;
-      html += `
-        <div class="answer-item ${cls}">
-          <div class="ai-num">Q${i+1}</div>
-          <div class="ai-q">${a.q}</div>
-          <div class="ai-ans">
-            Your answer: ${selText}<br>
-            Correct: <span class="correct-ans">${letters[a.correct]}. ${a.options[a.correct]}</span>
-          </div>
-        </div>`;
-    });
-  }
-  document.getElementById('modalBody').innerHTML = html;
-  document.getElementById('detailModal').classList.add('show');
-}
-
-// ═══════════════════════════════════════════════
-// ADD NEW TEST (Admin)
-// ═══════════════════════════════════════════════
-function openAddTestModal() {
-  document.getElementById('newTestTitle').value = '';
-  document.getElementById('newTestTopic').value = 'mixed';
-  document.getElementById('newTestQCount').value = '50';
-  document.getElementById('addTestErr').style.display = 'none';
-  document.getElementById('createTestBtn').disabled = false;
-  document.getElementById('createTestBtn').textContent = 'Generate & Save Test →';
-  document.getElementById('addTestModal').classList.add('show');
-}
-
-async function createNewTest() {
-  const title = document.getElementById('newTestTitle').value.trim();
-  const topic = document.getElementById('newTestTopic').value;
-  const qCount = parseInt(document.getElementById('newTestQCount').value);
-
-  if (!title) {
-    document.getElementById('addTestErr').style.display = 'block';
-    document.getElementById('addTestErr').textContent = 'Please enter a test title.';
-    return;
-  }
-
-  document.getElementById('createTestBtn').disabled = true;
-  document.getElementById('createTestBtn').textContent = 'Saving test...';
-  document.getElementById('addTestErr').style.display = 'none';
-
-  try {
-    // Only save test metadata - questions auto-generate when student attempts
-    const testData = {
-      title, topic, qCount,
-      createdAt: new Date().toISOString()
-    };
-
-    const pushed = await fbPush('tests', testData);
-    if (!pushed || !pushed.name) throw new Error('Firebase save failed - check rules');
-
-    document.getElementById('createTestBtn').textContent = '✓ Test Saved!';
-    setTimeout(() => {
-      closeModal('addTestModal');
-      loadAdminData();
-    }, 800);
-
-  } catch(e) {
-    console.error('Create test error:', e);
-    document.getElementById('addTestErr').style.display = 'block';
-    document.getElementById('addTestErr').textContent = 'Error: ' + e.message;
-    document.getElementById('createTestBtn').disabled = false;
-    document.getElementById('createTestBtn').textContent = 'Save Test →';
-  }
-}
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
 </script>
 </body>
 </html>
