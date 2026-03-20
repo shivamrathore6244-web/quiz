@@ -779,7 +779,12 @@ function finishQuiz(){
   showScreen('resultScreen');
 }
 
-function showReview(){showScreen('reviewScreen');filterReview('all');}
+function showReview(){
+  for(let i=0;i<questions.length;i++){
+    if(!userAnswers[i])userAnswers[i]={selected:-1,correct:questions[i].answer,skipped:true};
+  }
+  showScreen('reviewScreen');filterReview('all');
+}
 
 function filterReview(type){
   const map={all:'fa',correct:'fc',wrong:'fw',skip:'fs'};
