@@ -583,6 +583,8 @@ function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
+  // Clear timer when navigating away from quiz
+  if(id!=='quizScreen') clearInterval(timerInt);
 }
 
 function goToTestSelect(){
@@ -630,6 +632,7 @@ function startSelectedTest(){
 }
 
 function initQuiz(){
+  clearInterval(timerInt); // Bug fix: clear any stale timer from previous test
   score=0;wrong=0;skipped=0;currentQ=0;userAnswers=[];netScore=0;
   document.getElementById('quizBrand').textContent=currentTestTitle;
   document.getElementById('negVal').textContent=negMarking;
@@ -684,6 +687,7 @@ function updateTimer(total){
 
 function timeUp(){
   isAnswered=true;skipped++;
+  document.getElementById('liveSkipped').textContent=skipped;
   const q=questions[currentQ];
   document.querySelectorAll('.opt-btn').forEach((b,i)=>{b.disabled=true;if(i===q.answer)b.classList.add('correct');});
   userAnswers[currentQ]={selected:-1,correct:q.answer,skipped:true};
@@ -720,8 +724,12 @@ function nextQ(){
 }
 
 function showSubmitModal(){
-  const attempted=userAnswers.filter(a=>a).length;
-  const pending=questions.length-attempted;
+  // Count pending: unvisited questions + current if not answered
+  let pending=0;
+  for(let i=0;i<questions.length;i++){
+    if(!userAnswers[i] && i!==currentQ) pending++;
+  }
+  if(!isAnswered) pending++; // current question not answered yet
   document.getElementById('mCorrect').textContent=score;
   document.getElementById('mWrong').textContent=wrong;
   document.getElementById('mPending').textContent=pending;
@@ -735,14 +743,26 @@ function closeModal(){document.getElementById('submitModal').classList.remove('s
 
 function confirmSubmit(){
   closeModal();
+  clearInterval(timerInt); // Bug fix: stop timer immediately on submit
+  // Mark current question as skipped if not answered
+  if(!isAnswered && !userAnswers[currentQ]){
+    skipped++;
+    userAnswers[currentQ]={selected:-1,correct:questions[currentQ].answer,skipped:true};
+  }
+  // Mark all remaining unvisited questions as skipped
   for(let i=0;i<questions.length;i++){
-    if(!userAnswers[i]){skipped++;userAnswers[i]={selected:-1,correct:questions[i].answer,skipped:true};}
+    if(!userAnswers[i]){
+      skipped++;
+      userAnswers[i]={selected:-1,correct:questions[i].answer,skipped:true};
+    }
   }
   finishQuiz();
 }
 
 function finishQuiz(){
   clearInterval(timerInt);
+  // Recalculate skipped accurately from userAnswers to avoid any double-count bugs
+  skipped = userAnswers.filter(a=>a && a.skipped).length;
   const total=questions.length,pct=Math.round((score/total)*100);
   const isBank=selectedTestId==='ibps_bank';
   const tier=isBank?(pct>=75?0:pct>=50?1:2):(pct>=80?0:pct>=60?1:2);
