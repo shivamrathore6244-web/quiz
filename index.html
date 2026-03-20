@@ -61,7 +61,7 @@ h2 { font-size:20px; font-weight:700; }
 .neg-row { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 18px; margin-bottom:12px; }
 .neg-info p { font-size:14px; font-weight:500; }
 .neg-info span { font-size:12px; color:var(--text3); }
-.neg-select { padding:7px 10px; border:1px solid var(--border); border-radius:8px; font-family:'Inter',sans-serif; font-size:14px; color:var(--text); background:var(--white); outline:none; cursor:pointer; }
+
 .admin-link { text-align:center; margin-top:14px; font-size:13px; color:var(--text3); }
 .admin-link a { color:var(--blue); text-decoration:none; font-weight:600; }
 
@@ -277,16 +277,13 @@ h2 { font-size:20px; font-weight:700; }
       </div>
       <div class="card neg-row">
         <div class="neg-info">
-          <p>Negative Marking</p>
-          <span>Penalty for wrong answers</span>
+          <p>Marking Scheme</p>
+          <span>Fixed per test — set automatically</span>
         </div>
-        <select class="neg-select" id="negMarkSelect">
-          <option value="0">None</option>
-          <option value="0.25" selected>-0.25</option>
-          <option value="0.33">-0.33</option>
-          <option value="0.5">-0.50</option>
-          <option value="1">-1.00</option>
-        </select>
+        <div style="font-size:13px;color:var(--text2);text-align:right;line-height:1.6;">
+          JRF Agriculture: <strong style="color:var(--green);">+4</strong> / <strong style="color:var(--red);">−1</strong><br>
+          IBPS Bank: <strong style="color:var(--green);">+1</strong> / <strong style="color:var(--red);">−0.25</strong>
+        </div>
       </div>
       <div class="err" id="homeErr"></div>
       <button class="btn btn-green" onclick="goToTestSelect()">View Available Tests →</button>
@@ -350,7 +347,7 @@ h2 { font-size:20px; font-weight:700; }
       <div class="q-num" id="qNum">QUESTION 01</div>
       <div class="q-text" id="qText"></div>
     </div>
-    <div class="neg-warn hidden" id="negWarn">⚠ Negative marking active: −<span id="negVal">0.25</span> for wrong answer</div>
+    <div class="neg-warn hidden" id="negWarn">⚠ Marking: +<span id="correctMarkDisplay">1</span> correct &nbsp;|&nbsp; −<span id="negVal">0.25</span> wrong</div>
     <div class="options" id="optionsBox"></div>
     <div class="expl-box" id="explBox">
       <div class="expl-head" id="explHead"></div>
@@ -398,7 +395,7 @@ h2 { font-size:20px; font-weight:700; }
       <div class="card score-breakdown">
         <div class="sb-title">Score Breakdown</div>
         <div class="sb-row gross">
-          <span>Gross Score (correct × 1)</span>
+          <span>Gross Score (correct × <span id="correctMarkRes">1</span>)</span>
           <strong style="color:var(--green);" id="grossScore">0</strong>
         </div>
         <div class="sb-row neg" id="negRow">
@@ -576,7 +573,7 @@ const IBPS_Q=[
 
 let questions=[],currentQ=0,score=0,wrong=0,skipped=0;
 let userAnswers=[],timerInt=null,timeLeft=45,isAnswered=false;
-let selectedTestId=null,currentTestTitle='',negMarking=0.25,netScore=0;
+let selectedTestId=null,currentTestTitle='',negMarking=0.25,correctMark=1,netScore=0;
 let adminAllResults=[],adminFilter='all';
 
 function showScreen(id){
@@ -590,15 +587,15 @@ function showScreen(id){
 function goToTestSelect(){
   const name=document.getElementById('participantName').value.trim();
   if(!name){const e=document.getElementById('homeErr');e.style.display='block';e.textContent='Please enter your name.';return;}
-  negMarking=parseFloat(document.getElementById('negMarkSelect').value);
   document.getElementById('homeErr').style.display='none';
   showScreen('testSelectScreen');
   loadTests();
 }
+// Marking scheme is fixed per test - no user selection needed
 
 const DEFAULT_TESTS=[
-  {id:'jrf2026',title:'ICAR JRF 2026 Expected (Core Agriculture)',qCount:50,tag:'Agriculture JRF',color:'var(--green)',timer:30},
-  {id:'ibps_bank',title:'IBPS Bank (English + Quant + Reasoning)',qCount:30,tag:'Banking',color:'var(--blue)',timer:45}
+  {id:'jrf2026',title:'ICAR JRF 2026 Expected (Core Agriculture)',qCount:50,tag:'Agriculture JRF',color:'var(--green)',timer:30,correct:4,neg:1},
+  {id:'ibps_bank',title:'IBPS Bank (English + Quant + Reasoning)',qCount:30,tag:'Banking',color:'var(--blue)',timer:45,correct:1,neg:0.25}
 ];
 
 function loadTests(){
@@ -608,7 +605,7 @@ function loadTests(){
   DEFAULT_TESTS.forEach(t=>{
     const card=document.createElement('div');
     card.className='test-card';
-    card.innerHTML=`<div><div class="tc-tag" style="color:${t.color}">${t.tag}</div><div class="tc-title">${t.title}</div><div class="tc-meta">📝 ${t.qCount} Questions &nbsp;·&nbsp; ⏱ ${t.timer}s per Q</div></div><div class="tc-arrow">→</div>`;
+    card.innerHTML=`<div><div class="tc-tag" style="color:${t.color}">${t.tag}</div><div class="tc-title">${t.title}</div><div class="tc-meta">📝 ${t.qCount} Qs &nbsp;·&nbsp; ⏱ ${t.timer}s per Q &nbsp;·&nbsp; ✅ +${t.correct} / ❌ −${t.neg}</div></div><div class="tc-arrow">→</div>`;
     card.onclick=()=>{
       document.querySelectorAll('.test-card').forEach(c=>c.classList.remove('sel'));
       card.classList.add('sel');
@@ -632,11 +629,15 @@ function startSelectedTest(){
 }
 
 function initQuiz(){
-  clearInterval(timerInt); // Bug fix: clear any stale timer from previous test
+  clearInterval(timerInt);
   score=0;wrong=0;skipped=0;currentQ=0;userAnswers=[];netScore=0;
+  // Fixed marking scheme per test — no user selection needed
+  if(selectedTestId==='jrf2026'){correctMark=4;negMarking=1;}
+  else{correctMark=1;negMarking=0.25;}
   document.getElementById('quizBrand').textContent=currentTestTitle;
   document.getElementById('negVal').textContent=negMarking;
-  document.getElementById('negWarn').classList.toggle('hidden',negMarking===0);
+  document.getElementById('correctMarkDisplay').textContent=correctMark;
+  document.getElementById('negWarn').classList.remove('hidden'); // always show marking scheme
   showScreen('quizScreen');
   loadQuestion(0);
 }
@@ -703,7 +704,7 @@ function selectAnswer(sel){
     if(i===q.answer){b.classList.add('correct');b.querySelector('.opt-tick').textContent='✓';}
     else if(i===sel&&sel!==q.answer){b.classList.add('wrong');b.querySelector('.opt-tick').textContent='✗';}
   });
-  if(sel===q.answer){score++;netScore+=1;}else{wrong++;netScore-=negMarking;}
+  if(sel===q.answer){score++;netScore+=correctMark;}else{wrong++;netScore-=negMarking;}
   userAnswers[currentQ]={selected:sel,correct:q.answer,skipped:false};
   showExpl(q);
 }
@@ -770,7 +771,8 @@ function finishQuiz(){
     [['Excellent!','Ready to crack IBPS Bank!'],['Good Attempt!','Focus on speed & accuracy.'],['Keep Practicing','Work on basics and shortcuts.']]
     :[['Outstanding!','You are JRF ready!'],['Good Performance!','Revise weak areas.'],['Keep Practicing','Revise fundamentals.']];
 
-  document.getElementById('resBig').innerHTML=`${score}<span>/${total}</span>`;
+  const maxMarks=total*correctMark;
+  document.getElementById('resBig').innerHTML=`${score*correctMark}<span>/${maxMarks}</span>`;
   const badge=document.getElementById('resPctBadge');
   badge.textContent=pct+'%';
   badge.className='result-pct-badge '+(pct>=60?'rpb-high':pct>=40?'rpb-mid':'rpb-low');
@@ -780,13 +782,14 @@ function finishQuiz(){
   document.getElementById('rWrong').textContent=wrong;
   document.getElementById('rSkipped').textContent=skipped;
   document.getElementById('rAttempted').textContent=score+wrong;
-  document.getElementById('grossScore').textContent=score+' / '+total;
+  document.getElementById('grossScore').textContent=(score*correctMark)+' / '+maxMarks;
+  document.getElementById('correctMarkRes').textContent=correctMark;
   document.getElementById('negValRes').textContent=negMarking;
   document.getElementById('negMarksTotal').textContent='−'+(wrong*negMarking).toFixed(2);
   document.getElementById('negRow').style.display=negMarking>0?'flex':'none';
   const net=netScore.toFixed(2);
   const nd=document.getElementById('netScoreDisplay');
-  nd.textContent=net+' / '+total;
+  nd.textContent=net+' / '+maxMarks;
   nd.style.color=parseFloat(net)>=0?'var(--green)':'var(--red)';
 
   fbPush('results',{
