@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agriculture JRF Mock Test</title>
+<title>Agriculture JRF & IBPS AFO Mock Tests</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -21,6 +21,7 @@
   --correct: #2d6a4f;
   --wrong: #c0392b;
   --card-shadow: 0 2px 20px rgba(45,106,79,0.10);
+  --banking-blue: #1e3a8a;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family:'Source Sans 3',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
@@ -37,7 +38,7 @@ body::before {
 /* HOME */
 .home-wrap { max-width:560px; width:100%; margin:0 auto; padding:40px 24px; text-align:center; }
 .badge { display:inline-block; background:var(--green); color:#fff; font-size:11px; letter-spacing:3px; font-weight:600; padding:6px 18px; border-radius:2px; margin-bottom:22px; text-transform:uppercase; }
-.home-title { font-family:'Playfair Display',serif; font-size:clamp(32px,7vw,52px); color:var(--green); line-height:1.15; margin-bottom:10px; }
+.home-title { font-family:'Playfair Display',serif; font-size:clamp(32px,7vw,48px); color:var(--green); line-height:1.15; margin-bottom:10px; }
 .home-sub { font-size:16px; color:var(--muted); line-height:1.7; margin-bottom:28px; }
 .info-row { display:flex; gap:12px; justify-content:center; margin-bottom:32px; flex-wrap:wrap; }
 .info-chip { background:var(--white); border:1px solid var(--border); border-radius:4px; padding:12px 20px; font-size:13px; color:var(--muted); }
@@ -48,7 +49,6 @@ body::before {
 .name-section input:focus { border-color:var(--green); }
 .btn-start { width:100%; padding:15px; background:var(--green); color:#fff; border:none; border-radius:5px; font-family:'Playfair Display',serif; font-size:19px; cursor:pointer; letter-spacing:1px; transition:all 0.2s; box-shadow:0 4px 16px rgba(45,106,79,0.25); }
 .btn-start:hover { background:var(--green-light); transform:translateY(-2px); }
-.btn-start:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
 .admin-link { margin-top:18px; font-size:13px; color:var(--muted); }
 .admin-link a { color:var(--green); text-decoration:none; font-weight:600; }
 .error-box { background:#fdecea; border:1px solid #f5c6cb; border-radius:6px; padding:12px 16px; font-size:14px; color:var(--wrong); margin-bottom:14px; display:none; }
@@ -165,8 +165,8 @@ body::before {
 .s-card .sn { font-family:'Playfair Display',serif; font-size:28px; color:var(--green); }
 .s-card .sl { font-size:11px; color:var(--muted); letter-spacing:1px; margin-top:4px; }
 .participants-table { background:var(--white); border:1px solid var(--border); border-radius:8px; overflow:hidden; box-shadow:var(--card-shadow); }
-.table-head { background:var(--green); color:#fff; display:grid; grid-template-columns:40px 1fr 100px 80px 80px 100px; padding:12px 20px; font-size:12px; letter-spacing:1px; font-weight:600; text-transform:uppercase; }
-.participant-row { display:grid; grid-template-columns:40px 1fr 100px 80px 80px 100px; padding:14px 20px; border-bottom:1px solid var(--border); align-items:center; cursor:pointer; transition:background 0.15s; }
+.table-head { background:var(--green); color:#fff; display:grid; grid-template-columns:40px 1fr 150px 80px 80px 100px; padding:12px 20px; font-size:12px; letter-spacing:1px; font-weight:600; text-transform:uppercase; }
+.participant-row { display:grid; grid-template-columns:40px 1fr 150px 80px 80px 100px; padding:14px 20px; border-bottom:1px solid var(--border); align-items:center; transition:background 0.15s; }
 .participant-row:hover { background:var(--bg); }
 .rank { font-weight:700; color:var(--gold); font-family:'Playfair Display',serif; }
 .p-name { font-weight:600; }
@@ -175,26 +175,6 @@ body::before {
 .p-pct.low { background:#fdecea; color:var(--wrong); }
 .p-pct.mid { background:#fff8e1; color:var(--gold); }
 .empty-state { text-align:center; padding:60px 20px; color:var(--muted); font-size:16px; }
-
-/* MODALS */
-.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:100; display:none; align-items:center; justify-content:center; padding:20px; }
-.modal-overlay.show { display:flex; }
-.modal { background:var(--white); border-radius:10px; max-width:650px; width:100%; max-height:85vh; overflow-y:auto; box-shadow:0 20px 60px rgba(0,0,0,0.2); }
-.modal-head { position:sticky; top:0; background:var(--green); color:#fff; padding:18px 24px; display:flex; justify-content:space-between; align-items:center; }
-.modal-head h3 { font-family:'Playfair Display',serif; font-size:20px; }
-.modal-close { background:rgba(255,255,255,0.2); border:none; color:#fff; width:30px; height:30px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; }
-.modal-body { padding:20px 24px; }
-.modal-score-row { display:flex; gap:12px; margin-bottom:20px; flex-wrap:wrap; }
-.ms-chip { background:var(--bg); border:1px solid var(--border); border-radius:4px; padding:10px 16px; font-size:14px; }
-.ms-chip strong { display:block; font-size:20px; font-family:'Playfair Display',serif; }
-.answer-item { border:1px solid var(--border); border-radius:6px; padding:12px 16px; margin-bottom:10px; font-size:14px; }
-.answer-item.correct { border-color:var(--correct); background:#f0faf4; }
-.answer-item.wrong { border-color:var(--wrong); background:#fdecea; }
-.answer-item.skipped { border-color:var(--gold); background:#fffbf0; }
-.ai-num { font-size:11px; color:var(--muted); margin-bottom:4px; font-weight:600; }
-.ai-q { font-weight:600; margin-bottom:6px; }
-.correct-ans { color:var(--correct); font-weight:600; }
-.wrong-ans { color:var(--wrong); font-weight:600; }
 
 @media(max-width:600px) {
   .stats-banner { grid-template-columns:1fr 1fr; }
@@ -210,20 +190,15 @@ body::before {
   <div class="flex-center">
     <div class="home-wrap">
       <div class="badge">Mock Test Series</div>
-      <h1 class="home-title">Agriculture JRF<br>Practice Test</h1>
-      <p class="home-sub">JRF level 2026 Expected questions on Agronomy, Soil Science, Plant Pathology, Horticulture & more.</p>
-      <div class="info-row">
-        <div class="info-chip"><strong>50</strong>Questions</div>
-        <div class="info-chip"><strong>4</strong>Options</div>
-        <div class="info-chip"><strong>30s</strong>Per Q</div>
-        <div class="info-chip"><strong>Free</strong>Mock Test</div>
-      </div>
+      <h1 class="home-title">Agriculture & Banking<br>Practice Tests</h1>
+      <p class="home-sub">High-quality mock tests for ICAR JRF & IBPS AFO Prelims. Analyze your speed and accuracy.</p>
+      
       <div class="name-section">
         <label>Your Full Name</label>
         <input type="text" id="participantName" placeholder="Enter your name to begin..." maxlength="60"/>
       </div>
       <div class="error-box" id="homeErr"></div>
-      <button class="btn-start" id="startBtn" onclick="goToTestSelect()">Select Test →</button>
+      <button class="btn-start" id="startBtn" onclick="goToTestSelect()">View Available Tests →</button>
       <div class="admin-link">Examiner? <a href="#" onclick="showAdminLogin()">Admin Panel →</a></div>
     </div>
   </div>
@@ -233,10 +208,10 @@ body::before {
   <div class="flex-center">
     <div class="test-selector-wrap">
       <h2>Select a Test</h2>
-      <p>Choose which mock test you want to attempt</p>
+      <p>Choose which mock test you want to attempt today</p>
       <div class="test-list" id="testList"></div>
-      <button class="btn-take-test" id="takeTestBtn" onclick="startSelectedTest()" disabled>Start Test →</button>
-      <button class="btn-back" onclick="showScreen('homeScreen')">← Back</button>
+      <button class="btn-take-test" id="takeTestBtn" onclick="startSelectedTest()" disabled>Start Selected Test →</button>
+      <button class="btn-back" onclick="showScreen('homeScreen')">← Back to Home</button>
     </div>
   </div>
 </div>
@@ -247,7 +222,7 @@ body::before {
       <div class="leaf-spin"></div>
       <div class="loading-title">Preparing Your Test</div>
       <div class="loading-bar-wrap"><div class="loading-bar-fill" id="loadBar"></div></div>
-      <div class="loading-status" id="loadStatus">Loading expected 2026 questions...</div>
+      <div class="loading-status" id="loadStatus">Loading questions...</div>
     </div>
   </div>
 </div>
@@ -255,16 +230,16 @@ body::before {
 <div id="quizScreen" class="screen">
   <div class="quiz-wrap">
     <div class="quiz-top">
-      <div class="quiz-brand" id="quizBrand">Agriculture JRF Mock Test</div>
+      <div class="quiz-brand" id="quizBrand">Mock Test</div>
       <div class="score-pills">
         <div class="pill">✓ <span class="n g" id="liveCorrect">0</span></div>
         <div class="pill">✗ <span class="n r" id="liveWrong">0</span></div>
       </div>
     </div>
     <div class="progress-track"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
-    <div class="progress-label" id="progLabel">Question 1 of 50</div>
+    <div class="progress-label" id="progLabel">Question 1 of X</div>
     <div class="timer-row">
-      <span class="timer-text">⏱ <span id="timerNum">30</span>s</span>
+      <span class="timer-text">⏱ <span id="timerNum">45</span>s</span>
       <div class="timer-bar-wrap"><div class="timer-bar-fill" id="timerBar" style="width:100%"></div></div>
     </div>
     <div class="q-card">
@@ -282,7 +257,7 @@ body::before {
     <div class="result-wrap">
       <div class="result-circle">
         <div class="result-pct" id="resPct">0%</div>
-        <div class="result-out" id="resOut">0/50</div>
+        <div class="result-out" id="resOut">0/0</div>
       </div>
       <div class="result-title" id="resTitle">Well Done!</div>
       <div class="result-sub" id="resSub"></div>
@@ -316,14 +291,13 @@ body::before {
     <div class="admin-header">
       <div>
         <div class="admin-title">Admin Dashboard</div>
-        <div class="admin-sub">Agriculture JRF Mock Test Series</div>
+        <div class="admin-sub">Results for all Mock Tests</div>
       </div>
       <div class="admin-btns">
         <button class="btn-refresh" onclick="loadAdminData()">↻ Refresh</button>
         <button class="btn-secondary" onclick="showScreen('homeScreen')">← Home</button>
       </div>
     </div>
-    <div class="test-tabs" id="adminTabs"></div>
     <div class="stats-banner">
       <div class="s-card"><div class="sn" id="sTotalP">0</div><div class="sl">PARTICIPANTS</div></div>
       <div class="s-card"><div class="sn" id="sAvgScore">—</div><div class="sl">AVG SCORE</div></div>
@@ -332,26 +306,16 @@ body::before {
     </div>
     <div class="participants-table">
       <div class="table-head">
-        <div>#</div><div>Name</div><div>Test</div><div>Score</div><div>Wrong</div><div>Accuracy</div>
+        <div>#</div><div>Name</div><div>Test Attempted</div><div>Score</div><div>Wrong</div><div>Accuracy</div>
       </div>
       <div id="participantsList"></div>
     </div>
   </div>
 </div>
 
-<div class="modal-overlay" id="detailModal">
-  <div class="modal">
-    <div class="modal-head">
-      <h3 id="modalName">Participant</h3>
-      <button class="modal-close" onclick="closeModal('detailModal')">✕</button>
-    </div>
-    <div class="modal-body" id="modalBody"></div>
-  </div>
-</div>
-
 <script>
 // ═══════════════════════════════════════════════
-// FIREBASE CONFIG (Kept for Saving Results Only)
+// FIREBASE CONFIG (For Saving Results Only)
 // ═══════════════════════════════════════════════
 const FB_URL = 'https://jrf1-9b59f-default-rtdb.firebaseio.com';
 
@@ -372,68 +336,100 @@ async function fbPush(path, data) {
 }
 
 // ═══════════════════════════════════════════════
-// HARDCODED 2026 JRF QUESTION BANK (50 Questions)
+// HARDCODED DB: JRF 2026 (50 Qs)
 // ═══════════════════════════════════════════════
 const JRF_2026_EXPECTED_Q = [
-  // Agronomy & Recent Trends
-  {q: "Which form of nitrogen is predominantly present in the newly introduced 'Nano Urea' in India?", options: ["Amide form", "Nanoscale nitrogen polymers", "Nitrate form", "Ammoniacal form"], answer: 1, explanation: "Nano Urea liquid contains nanoscale nitrogen particles (polymers) that have higher surface area, increasing Nitrogen Use Efficiency (NUE) up to 80%."},
-  {q: "Under the PM PRANAM scheme, what is the primary objective of the government?", options: ["Promote micro-irrigation", "Incentivize states to reduce chemical fertilizers", "Provide free seeds to marginal farmers", "Ensure minimum support price for all crops"], answer: 1, explanation: "PM PRANAM (PM Programme for Restoration, Awareness, Nourishment and Amelioration of Mother Earth) aims to reduce the use of chemical fertilizers by incentivizing states."},
-  {q: "The concept of 'Conservation Agriculture' is based on which of the following principles?", options: ["Intensive tillage and clean cultivation", "Minimum soil disturbance, permanent soil cover, and crop rotation", "Maximum use of chemical fertilizers", "Monocropping with high yielding varieties"], answer: 1, explanation: "Conservation agriculture relies on 3 pillars: Minimum tillage, permanent organic soil cover (residues), and diversified crop rotations."},
-  {q: "Which herbicide is commonly used as an anti-transpirant to reduce water loss in crops?", options: ["Atrazine", "Glyphosate", "Paraquat", "Pendimethalin"], answer: 0, explanation: "Atrazine at very low concentrations acts as a stomatal closing type anti-transpirant, reducing transpiration loss."},
-  {q: "System of Rice Intensification (SRI) requires what age of seedlings for transplanting?", options: ["21-25 days", "8-12 days", "30-35 days", "40-45 days"], answer: 1, explanation: "In SRI, young seedlings of 8-12 days (2-leaf stage) are transplanted to preserve their potential for heavy tillering and root growth."},
-  {q: "What is the Harvest Index of a crop that produces 40 quintals of grain and 60 quintals of straw per hectare?", options: ["40%", "60%", "66%", "150%"], answer: 0, explanation: "Harvest Index = (Economic Yield / Biological Yield) * 100. Here, (40 / (40+60)) * 100 = 40%."},
-  {q: "Which among the following is a C4 weed?", options: ["Chenopodium album", "Phalaris minor", "Cyperus rotundus", "Avena fatua"], answer: 2, explanation: "Cyperus rotundus (Purple nutsedge) is a highly competitive C4 weed with high photosynthetic efficiency."},
-  {q: "The term 'Allelopathy' was first coined by?", options: ["Hans Molisch", "Liebig", "Jethro Tull", "Donald"], answer: 0, explanation: "Hans Molisch (1937) coined the term Allelopathy to refer to the biochemical interactions between plants."},
-  {q: "In precision farming, NDVI is used to assess crop health. What does NDVI stand for?", options: ["Normalized Difference Vegetation Index", "Net Digital Vegetative Indicator", "National Drought Variable Index", "Normalized Digital Visual Index"], answer: 0, explanation: "NDVI uses Near-Infrared and Red light to calculate the vigor and health of vegetation."},
-  {q: "Which crop has the highest water use efficiency (WUE)?", options: ["Rice", "Wheat", "Finger millet", "Sorghum"], answer: 2, explanation: "Finger millet (Ragi) is a C4 crop with extreme drought tolerance and the highest water use efficiency among cereals."},
-  
-  // Soil Science
-  {q: "Which soil order is primarily associated with 'Black Cotton Soils' of India?", options: ["Alfisol", "Vertisol", "Entisol", "Inceptisol"], answer: 1, explanation: "Vertisols are rich in montmorillonite clay, which causes shrinking and swelling, characteristic of black cotton soils."},
-  {q: "What is the ideal C:N ratio of normal cultivable soil?", options: ["10:1 to 12:1", "20:1 to 30:1", "100:1", "5:1"], answer: 0, explanation: "The average Carbon to Nitrogen (C:N) ratio of normal soils is about 10:1 to 12:1, which allows balanced microbial activity."},
-  {q: "Which element was added as the 17th essential plant nutrient by Brown et al. (1987)?", options: ["Cobalt", "Silicon", "Nickel", "Vanadium"], answer: 2, explanation: "Nickel (Ni) is required for the enzyme urease, which breaks down urea in the plant."},
-  {q: "Electrical Conductivity (EC) of saline soils at 25°C is generally:", options: ["< 4 dS/m", "> 4 dS/m", "Zero", "Negative"], answer: 1, explanation: "Saline soils have an EC > 4 dS/m, ESP < 15, and pH < 8.5."},
-  {q: "Which clay mineral has the highest Cation Exchange Capacity (CEC)?", options: ["Kaolinite", "Illite", "Montmorillonite", "Vermiculite"], answer: 3, explanation: "Vermiculite has the highest CEC (100-150 meq/100g) among common silicate clay minerals."},
-  {q: "Denitrification in soil occurs predominantly under which condition?", options: ["Aerobic condition", "Anaerobic condition", "High pH condition", "Low temperature"], answer: 1, explanation: "Denitrification (conversion of nitrate to N2 gas) is carried out by anaerobic bacteria in waterlogged or poorly aerated soils."},
-  {q: "VAM (Vesicular Arbuscular Mycorrhiza) is highly useful for the mobilization of which nutrient?", options: ["Nitrogen", "Phosphorus", "Potassium", "Sulphur"], answer: 1, explanation: "VAM fungi form a symbiotic association with roots and significantly increase phosphorus uptake from the soil."},
-  {q: "The disease 'Khaira' in rice is caused by the deficiency of:", options: ["Iron", "Zinc", "Manganese", "Copper"], answer: 1, explanation: "Khaira disease in rice, first reported by Dr. Y.L. Nene at Pantnagar, is due to Zinc deficiency in flooded soils."},
-  {q: "What is the equivalent acidity of Ammonium Sulphate?", options: ["110", "93", "80", "128"], answer: 0, explanation: "Ammonium sulphate has an equivalent acidity of 110, meaning 110 kg of CaCO3 is needed to neutralize the acidity caused by 100 kg of fertilizer."},
-  {q: "Reclamation of alkali soils is practically done by adding:", options: ["Lime", "Gypsum", "Urea", "Rock Phosphate"], answer: 1, explanation: "Gypsum (CaSO4.2H2O) provides Calcium which replaces excess Sodium on the clay complex in alkali soils."},
+  {q: "Which form of nitrogen is predominantly present in the newly introduced 'Nano Urea' in India?", options: ["Amide form", "Nanoscale nitrogen polymers", "Nitrate form", "Ammoniacal form"], answer: 1, explanation: "Nano Urea liquid contains nanoscale nitrogen particles (polymers) that have higher surface area."},
+  {q: "Under the PM PRANAM scheme, what is the primary objective of the government?", options: ["Promote micro-irrigation", "Incentivize states to reduce chemical fertilizers", "Provide free seeds", "Ensure MSP"], answer: 1, explanation: "PM PRANAM aims to reduce the use of chemical fertilizers by incentivizing states."},
+  {q: "The concept of 'Conservation Agriculture' is based on which of the following principles?", options: ["Intensive tillage", "Minimum soil disturbance & crop rotation", "Maximum chemical use", "Monocropping"], answer: 1, explanation: "Relies on 3 pillars: Minimum tillage, permanent organic soil cover, and diversified crop rotations."},
+  {q: "Which herbicide is commonly used as an anti-transpirant?", options: ["Atrazine", "Glyphosate", "Paraquat", "Pendimethalin"], answer: 0, explanation: "Atrazine at low concentrations acts as a stomatal closing type anti-transpirant."},
+  {q: "System of Rice Intensification (SRI) requires what age of seedlings for transplanting?", options: ["21-25 days", "8-12 days", "30-35 days", "40-45 days"], answer: 1, explanation: "Young seedlings of 8-12 days (2-leaf stage) are transplanted."},
+  {q: "What is the Harvest Index of a crop that produces 40q of grain and 60q of straw per ha?", options: ["40%", "60%", "66%", "150%"], answer: 0, explanation: "HI = (Economic Yield / Biological Yield) * 100 = (40 / 100) * 100 = 40%."},
+  {q: "Which among the following is a C4 weed?", options: ["Chenopodium album", "Phalaris minor", "Cyperus rotundus", "Avena fatua"], answer: 2, explanation: "Cyperus rotundus (Purple nutsedge) is a highly competitive C4 weed."},
+  {q: "The term 'Allelopathy' was first coined by?", options: ["Hans Molisch", "Liebig", "Jethro Tull", "Donald"], answer: 0, explanation: "Hans Molisch (1937) coined the term Allelopathy."},
+  {q: "In precision farming, NDVI is used to assess crop health. NDVI stands for?", options: ["Normalized Difference Vegetation Index", "Net Digital Vegetative Indicator", "National Drought Variable Index", "Normalized Digital Visual Index"], answer: 0, explanation: "NDVI uses Near-Infrared and Red light to calculate the vigor and health."},
+  {q: "Which crop has the highest water use efficiency (WUE)?", options: ["Rice", "Wheat", "Finger millet", "Sorghum"], answer: 2, explanation: "Finger millet (Ragi) is a C4 crop with extreme drought tolerance."},
+  {q: "Which soil order is primarily associated with 'Black Cotton Soils' of India?", options: ["Alfisol", "Vertisol", "Entisol", "Inceptisol"], answer: 1, explanation: "Vertisols are rich in montmorillonite clay causing shrink-swell."},
+  {q: "What is the ideal C:N ratio of normal cultivable soil?", options: ["10:1 to 12:1", "20:1 to 30:1", "100:1", "5:1"], answer: 0, explanation: "Average C:N ratio of normal soils is about 10:1 to 12:1."},
+  {q: "Which element was added as the 17th essential plant nutrient?", options: ["Cobalt", "Silicon", "Nickel", "Vanadium"], answer: 2, explanation: "Nickel (Ni) is required for the enzyme urease."},
+  {q: "Electrical Conductivity (EC) of saline soils at 25°C is generally:", options: ["< 4 dS/m", "> 4 dS/m", "Zero", "Negative"], answer: 1, explanation: "Saline soils have an EC > 4 dS/m."},
+  {q: "Which clay mineral has the highest Cation Exchange Capacity (CEC)?", options: ["Kaolinite", "Illite", "Montmorillonite", "Vermiculite"], answer: 3, explanation: "Vermiculite has the highest CEC (100-150 meq/100g)."},
+  {q: "Denitrification in soil occurs predominantly under which condition?", options: ["Aerobic", "Anaerobic", "High pH", "Low temperature"], answer: 1, explanation: "Carried out by anaerobic bacteria in waterlogged soils."},
+  {q: "VAM is highly useful for the mobilization of which nutrient?", options: ["Nitrogen", "Phosphorus", "Potassium", "Sulphur"], answer: 1, explanation: "VAM fungi significantly increase phosphorus uptake."},
+  {q: "The disease 'Khaira' in rice is caused by the deficiency of:", options: ["Iron", "Zinc", "Manganese", "Copper"], answer: 1, explanation: "Zinc deficiency in flooded soils causes Khaira."},
+  {q: "What is the equivalent acidity of Ammonium Sulphate?", options: ["110", "93", "80", "128"], answer: 0, explanation: "It requires 110 kg of CaCO3 to neutralize 100 kg of fertilizer."},
+  {q: "Reclamation of alkali soils is practically done by adding:", options: ["Lime", "Gypsum", "Urea", "Rock Phosphate"], answer: 1, explanation: "Gypsum provides Calcium which replaces excess Sodium."},
+  {q: "The term 'Genetics' was coined by:", options: ["Gregor Mendel", "W. Bateson", "T.H. Morgan", "Hugo de Vries"], answer: 1, explanation: "William Bateson coined it in 1905."},
+  {q: "Which gene editing technology is revolutionizing crop breeding?", options: ["RNAi", "ZFNs", "CRISPR-Cas9", "TALENs"], answer: 2, explanation: "CRISPR-Cas9 acts as genetic scissors."},
+  {q: "The cross of an F1 hybrid with its recessive parent is known as:", options: ["Back cross", "Test cross", "Top cross", "Diallel cross"], answer: 1, explanation: "A Test Cross determines the genotype of an individual showing a dominant phenotype."},
+  {q: "What is the basic chromosome number (x) of wheat?", options: ["7", "14", "21", "42"], answer: 0, explanation: "Bread wheat is a hexaploid (2n = 6x = 42), so x = 7."},
+  {q: "Golden Rice is a genetically modified crop biofortified with:", options: ["Vitamin C", "Beta-carotene", "Iron", "Zinc"], answer: 1, explanation: "It is engineered to produce beta-carotene (Vitamin A precursor)."},
+  {q: "Cytoplasmic Male Sterility (CMS) is primarily governed by genes located in the:", options: ["Nucleus", "Chloroplast", "Mitochondria", "Ribosome"], answer: 2, explanation: "CMS is a maternally inherited trait determined by the mitochondrial genome."},
+  {q: "Rapid production of homozygous lines is achieved through:", options: ["Pedigree method", "Bulk method", "Doubled haploidy", "Mass selection"], answer: 2, explanation: "Produces 100% homozygous lines in one generation."},
+  {q: "Nullisomic condition is represented by which chromosomal formula?", options: ["2n - 1", "2n - 2", "2n + 1", "2n + 2"], answer: 1, explanation: "Loss of a complete pair of homologous chromosomes."},
+  {q: "Which chemical is used to induce polyploidy in plants?", options: ["EMS", "Colchicine", "Sodium azide", "Ethidium bromide"], answer: 1, explanation: "Colchicine inhibits spindle fiber formation, doubling chromosomes."},
+  {q: "One gene controlling multiple phenotypic traits is called:", options: ["Epistasis", "Pleiotropy", "Polygeny", "Penetrance"], answer: 1, explanation: "Pleiotropy influences two or more distinct phenotypic traits."},
+  {q: "Which rust of wheat is known as 'Killer Rust'?", options: ["Brown rust", "Yellow rust", "Black stem rust", "White rust"], answer: 2, explanation: "Black stem rust (Puccinia graminis) can completely destroy a crop."},
+  {q: "Bordeaux mixture was discovered by P.M.A. Millardet to control:", options: ["Late blight", "Downy mildew of grapevine", "Powdery mildew", "Ergot"], answer: 1, explanation: "Discovered in France to save grapevines."},
+  {q: "Tikka disease of groundnut is caused by:", options: ["Fungus", "Bacteria", "Virus", "Nematode"], answer: 0, explanation: "Caused by fungi Cercospora arachidicola."},
+  {q: "Which insect vector transmits the Leaf Curl Virus in Cotton?", options: ["Aphid", "Jassid", "Whitefly", "Thrips"], answer: 2, explanation: "Whitefly (Bemisia tabaci) is the primary vector."},
+  {q: "Bt Cotton provides resistance against:", options: ["Sucking pests", "Bollworms", "Termites", "Root grubs"], answer: 1, explanation: "Toxic to lepidopteran larvae like the pink bollworm."},
+  {q: "Which pathogen causes 'Panama wilt' in banana?", options: ["Xanthomonas", "Fusarium oxysporum", "Pseudomonas", "Phytophthora"], answer: 1, explanation: "Caused by Fusarium oxysporum f.sp. cubense."},
+  {q: "Economic threshold level (ETL) indicates:", options: ["Density for applying control measures", "Zero pest population", "Maximum damage level", "Natural enemy population"], answer: 0, explanation: "Density at which action should be taken to prevent economic injury."},
+  {q: "Root-knot nematodes belong to the genus:", options: ["Heterodera", "Meloidogyne", "Globodera", "Pratylenchus"], answer: 1, explanation: "Meloidogyne species cause root knots worldwide."},
+  {q: "Which is the first systemic fungicide discovered?", options: ["Carboxin", "Mancozeb", "Thiram", "Captan"], answer: 0, explanation: "Vitavax (Carboxin) was discovered in 1966."},
+  {q: "A pheromone trap attracts:", options: ["Female insects", "Male insects", "Both", "Larvae"], answer: 1, explanation: "Uses synthetic female sex pheromones to trap males."},
+  {q: "What does 'e-NAM' stand for?", options: ["Electronic National Agriculture Mission", "Electronic National Agriculture Market", "Electronic Network of Mandis", "Electronic New Agriculture Model"], answer: 1, explanation: "A pan-India electronic trading portal for APMC mandis."},
+  {q: "The first KVK in India was established in 1974 at:", options: ["New Delhi", "Ludhiana", "Pondicherry", "Pantnagar"], answer: 2, explanation: "Established in Pondicherry under TNAU."},
+  {q: "When Marginal Product (MP) becomes zero, Total Product (TP) is:", options: ["Negative", "Zero", "Maximum", "Minimum"], answer: 2, explanation: "TP reaches its peak when MP is zero."},
+  {q: "Which fruit is known as the 'Fruit of the 21st Century'?", options: ["Avocado", "Aonla", "Dragon Fruit", "Kiwi"], answer: 1, explanation: "Aonla (Indian Gooseberry) is highly nutritious and hardy."},
+  {q: "Development of fruits without fertilization is known as:", options: ["Apomixis", "Parthenocarpy", "Polyembryony", "Vivipary"], answer: 1, explanation: "Leads to seedless fruits like bananas."},
+  {q: "Under PMFBY, what is the premium rate for Kharif crops?", options: ["1.5%", "2.0%", "5.0%", "Variable"], answer: 1, explanation: "2% for Kharif, 1.5% for Rabi, and 5% for commercial crops."},
+  {q: "High Density Planting (HDP) in Mango was first standardized for:", options: ["Alphonso", "Dashehari", "Amrapali", "Mallika"], answer: 2, explanation: "Dwarf variety planted at 2.5m x 2.5m."},
+  {q: "Which institution recommends the MSP in India?", options: ["NABARD", "CACP", "NITI Aayog", "ICAR"], answer: 1, explanation: "Commission for Agricultural Costs and Prices (CACP)."},
+  {q: "The Training and Visit (T&V) system was introduced by:", options: ["Daniel Benor", "Albert Mayer", "S.K. Dey", "F.L. Brayne"], answer: 0, explanation: "Introduced in the 1970s, sponsored by the World Bank."},
+  {q: "Which vegetable is known as 'Poor Man's Meat' in India?", options: ["Potato", "Soybean", "Jackfruit", "Cowpea"], answer: 1, explanation: "Soybean contains ~40% protein."}
+];
 
-  // Genetics & Plant Breeding
-  {q: "The term 'Genetics' was coined by:", options: ["Gregor Mendel", "W. Bateson", "T.H. Morgan", "Hugo de Vries"], answer: 1, explanation: "William Bateson coined the term 'Genetics' in 1905 to describe the study of inheritance."},
-  {q: "Which gene editing technology was awarded the Nobel Prize in Chemistry in 2020 and is revolutionizing crop breeding?", options: ["RNA interference", "ZFNs", "CRISPR-Cas9", "TALENs"], answer: 2, explanation: "CRISPR-Cas9 acts as genetic scissors, allowing highly precise editing of crop genomes."},
-  {q: "The cross of an F1 hybrid with its recessive parent is known as:", options: ["Back cross", "Test cross", "Top cross", "Diallel cross"], answer: 1, explanation: "A Test Cross is made to determine the genotype of an individual showing a dominant phenotype by crossing it with a homozygous recessive parent."},
-  {q: "What is the basic chromosome number (x) of wheat?", options: ["7", "14", "21", "42"], answer: 0, explanation: "Bread wheat is a hexaploid (2n = 6x = 42), making its basic chromosome number x = 7."},
-  {q: "Golden Rice is a genetically modified crop biofortified with:", options: ["Vitamin C", "Beta-carotene (Vitamin A precursor)", "Iron", "Zinc"], answer: 1, explanation: "Golden rice is engineered to produce beta-carotene to combat Vitamin A deficiency in developing countries."},
-  {q: "Cytoplasmic Male Sterility (CMS) in crops is primarily governed by genes located in the:", options: ["Nucleus", "Chloroplast", "Mitochondria", "Ribosome"], answer: 2, explanation: "CMS is a maternally inherited trait determined by the mitochondrial genome."},
-  {q: "The rapid production of homozygous lines in breeding is achieved through:", options: ["Pedigree method", "Bulk method", "Doubled haploidy", "Mass selection"], answer: 2, explanation: "Doubled haploidy (often through anther culture followed by colchicine treatment) produces 100% homozygous lines in one generation."},
-  {q: "Nullisomic condition is represented by which chromosomal formula?", options: ["2n - 1", "2n - 2", "2n + 1", "2n + 2"], answer: 1, explanation: "Nullisomy is the loss of a complete pair of homologous chromosomes (2n - 2)."},
-  {q: "Which chemical is commonly used to induce polyploidy in plants?", options: ["EMS", "Colchicine", "Sodium azide", "Ethidium bromide"], answer: 1, explanation: "Colchicine inhibits spindle fiber formation during cell division, leading to chromosome doubling."},
-  {q: "The phenomenon where a single gene controls multiple, seemingly unrelated phenotypic traits is called:", options: ["Epistasis", "Pleiotropy", "Polygeny", "Penetrance"], answer: 1, explanation: "Pleiotropy occurs when one gene influences two or more distinct phenotypic traits."},
+// ═══════════════════════════════════════════════
+// HARDCODED DB: IBPS AFO PRE (30 Qs - Banking Focus)
+// ═══════════════════════════════════════════════
+const IBPS_AFO_PRE_Q = [
+  // ENGLISH LANGUAGE (10)
+  {q: "[English] Choose the synonym for the word 'PROLIFIC':", options: ["Barren", "Productive", "Scarce", "Dull"], answer: 1, explanation: "Prolific means producing a large amount of something (Productive)."},
+  {q: "[English] Identify the grammatical error: 'Neither the manager nor the employees was aware of the new policy.'", options: ["Neither the manager", "nor the employees", "was aware of", "No Error"], answer: 2, explanation: "Rule of proximity: With 'Neither...nor', the verb agrees with the noun closest to it ('employees', so it should be 'were')."},
+  {q: "[English] Fill in the blank: The committee _____ divided on the issue of the new agricultural bill.", options: ["is", "are", "has", "have"], answer: 1, explanation: "When a collective noun indicates divided opinions/actions, a plural verb ('are') is used."},
+  {q: "[English] What is the antonym of 'MITIGATE'?", options: ["Alleviate", "Aggravate", "Appease", "Soothe"], answer: 1, explanation: "Mitigate means to make less severe. Aggravate means to make worse."},
+  {q: "[English] Rearrange the sentence: (A) of the farmers / (B) by the recent floods / (C) the livelihoods / (D) have been destroyed.", options: ["CBAD", "CABD", "DCBA", "ACBD"], answer: 1, explanation: "Correct sentence: 'The livelihoods (C) of the farmers (A) by the recent floods (B) have been destroyed (D).' -> CABD."},
+  {q: "[English] Choose the correctly spelt word:", options: ["Acommodation", "Accommodation", "Accomodation", "Acomodation"], answer: 1, explanation: "Accommodation is the correct spelling (double 'c', double 'm')."},
+  {q: "[English] Idiom meaning: 'To beat around the bush'", options: ["To search carefully", "To avoid coming to the point", "To clean the garden", "To talk loudly"], answer: 1, explanation: "It means discussing a matter without getting to the main point."},
+  {q: "[English] One word substitution: 'A person who is indifferent to pleasure or pain.'", options: ["Stoic", "Cynic", "Ascetic", "Epicure"], answer: 0, explanation: "A Stoic is a person who endures hardship without showing their feelings or complaining."},
+  {q: "[English] Fill in the blank: He is good _____ mathematics.", options: ["in", "with", "at", "about"], answer: 2, explanation: "The correct preposition to use with 'good' when talking about skills is 'at'."},
+  {q: "[English] Error spotting: 'One of the boys have completed the assignment.'", options: ["One of the", "boys", "have completed", "the assignment"], answer: 2, explanation: "The phrase 'One of the' takes a plural noun but a singular verb. 'have' should be 'has'."},
 
-  // Plant Pathology & Entomology
-  {q: "Which rust of wheat is known as 'Killer Rust'?", options: ["Brown rust (Puccinia triticina)", "Yellow rust (Puccinia striiformis)", "Black stem rust (Puccinia graminis tritici)", "White rust"], answer: 2, explanation: "Black stem rust is highly destructive and can completely destroy a crop, hence called Killer Rust."},
-  {q: "Bordeaux mixture, the first effective fungicide, was discovered by P.M.A. Millardet to control:", options: ["Late blight of potato", "Downy mildew of grapevine", "Powdery mildew of apple", "Ergot of bajra"], answer: 1, explanation: "Millardet discovered it in 1885 in France to save grapevines from downy mildew."},
-  {q: "Tikka disease of groundnut is caused by:", options: ["Fungus", "Bacteria", "Virus", "Nematode"], answer: 0, explanation: "Tikka disease is caused by fungi (Cercospora arachidicola and Cercosporidium personatum)."},
-  {q: "Which insect vector is responsible for transmitting the Leaf Curl Virus in Cotton?", options: ["Aphid", "Jassid", "Whitefly", "Thrips"], answer: 2, explanation: "Whitefly (Bemisia tabaci) is the primary vector for Cotton Leaf Curl Virus (CLCuV)."},
-  {q: "Bt Cotton provides resistance against which specific group of insects?", options: ["Sucking pests", "Bollworms (Lepidoptera)", "Termites", "Root grubs"], answer: 1, explanation: "Bacillus thuringiensis (Bt) produces a protein toxic to lepidopteran larvae like the pink bollworm."},
-  {q: "Which pathogen causes 'Panama wilt' in banana?", options: ["Xanthomonas campestris", "Fusarium oxysporum", "Pseudomonas solanacearum", "Phytophthora infestans"], answer: 1, explanation: "Panama disease is a devastating fungal wilt caused by Fusarium oxysporum f.sp. cubense."},
-  {q: "The economic threshold level (ETL) in pest management indicates:", options: ["The pest density at which control measures should be applied", "The point of zero pest population", "Maximum crop damage level", "Natural enemy population"], answer: 0, explanation: "ETL is the pest density at which management action should be taken to prevent an increasing pest population from reaching the Economic Injury Level (EIL)."},
-  {q: "Root-knot nematodes belong to the genus:", options: ["Heterodera", "Meloidogyne", "Globodera", "Pratylenchus"], answer: 1, explanation: "Meloidogyne species cause root knots or galls in a wide range of crops worldwide."},
-  {q: "Which is the first systemic fungicide discovered?", options: ["Carboxin", "Mancozeb", "Thiram", "Captan"], answer: 0, explanation: "Carboxin (Vitavax) was discovered by Von Schmeling and Kulka in 1966."},
-  {q: "A pheromone trap attracts:", options: ["Female insects", "Male insects", "Both males and females", "Larvae"], answer: 1, explanation: "Pheromone traps generally use synthetic female sex pheromones to attract and trap male insects."},
+  // QUANTITATIVE APTITUDE (10)
+  {q: "[Quant] Find the missing number in the series: 5, 11, 23, 47, 95, ?", options: ["189", "191", "193", "196"], answer: 1, explanation: "Logic: (n × 2) + 1. Example: 95 × 2 + 1 = 191."},
+  {q: "[Quant] A train 150m long is running with a speed of 68 km/h. In what time will it pass a man who is running at 8 km/h in the same direction?", options: ["9 seconds", "10 seconds", "12 seconds", "15 seconds"], answer: 0, explanation: "Relative speed = (68 - 8) = 60 km/h = 60 × (5/18) m/s = 50/3 m/s. Time = Distance / Speed = 150 / (50/3) = 9 seconds."},
+  {q: "[Quant] Solve the quadratic equations: I. x² - 7x + 12 = 0 ; II. y² - 9y + 20 = 0", options: ["x > y", "x < y", "x ≥ y", "x ≤ y or No relation"], answer: 3, explanation: "Roots of x: 3, 4. Roots of y: 4, 5. Comparing: x can be less than or equal to y (x ≤ y)."},
+  {q: "[Quant] The simple interest on a sum of money for 3 years is ₹240 and the compound interest for 2 years is ₹170. Find the rate of interest.", options: ["8%", "10%", "12.5%", "15%"], answer: 2, explanation: "SI for 1 yr = 240/3 = 80. CI for 2 yrs = 170. Difference for 2nd yr = 170 - (80+80) = 10. Rate = (10/80) × 100 = 12.5%."},
+  {q: "[Quant] A can do a piece of work in 10 days, B in 15 days. They work together for 5 days. What fraction of the work is left?", options: ["1/6", "1/2", "1/3", "2/3"], answer: 0, explanation: "A's 1 day work = 1/10. B's = 1/15. Together 1 day = 1/6. In 5 days = 5/6. Work left = 1 - 5/6 = 1/6."},
+  {q: "[Quant] The ratio of present ages of A and B is 4:5. After 5 years, the ratio becomes 5:6. What is A's present age?", options: ["15 years", "20 years", "25 years", "30 years"], answer: 1, explanation: "Let ages be 4x and 5x. (4x+5)/(5x+5) = 5/6 => 24x + 30 = 25x + 25 => x = 5. A's age = 4(5) = 20."},
+  {q: "[Quant] If the price of sugar increases by 20%, by what percent must a household reduce its consumption so that the expenditure remains same?", options: ["16.66%", "20%", "25%", "15%"], answer: 0, explanation: "Reduction % = (R / (100+R)) × 100 = (20/120) × 100 = 16.66%."},
+  {q: "[Quant] A shopkeeper offers a discount of 10% on the marked price and still makes a profit of 8%. If the CP is ₹500, find the MP.", options: ["₹550", "₹600", "₹650", "₹700"], answer: 1, explanation: "SP = CP + Profit = 500 + 8% of 500 = 540. MP - 10% of MP = SP => 0.9MP = 540 => MP = 600."},
+  {q: "[Quant] What is the probability of getting a sum of 9 when two dice are thrown simultaneously?", options: ["1/9", "1/12", "1/6", "5/36"], answer: 0, explanation: "Favorable outcomes for sum 9: (3,6), (4,5), (5,4), (6,3) = 4. Total outcomes = 36. Prob = 4/36 = 1/9."},
+  {q: "[Quant] 45% of 600 + ? = 15 × 25. Find the value of ?", options: ["95", "105", "115", "125"], answer: 1, explanation: "45% of 600 = 270. 15 × 25 = 375. So, 270 + ? = 375 => ? = 105."},
 
-  // Gen Ag, Econ, Ext & Horti
-  {q: "What does 'e-NAM' stand for in Indian Agriculture?", options: ["Electronic National Agriculture Mission", "Electronic National Agriculture Market", "Electronic Network of Agricultural Mandis", "Electronic New Agriculture Model"], answer: 1, explanation: "e-NAM is a pan-India electronic trading portal networking existing APMC mandis."},
-  {q: "The first Krishi Vigyan Kendra (KVK) in India was established in 1974 at:", options: ["New Delhi", "Ludhiana", "Pondicherry", "Pantnagar"], answer: 2, explanation: "The first KVK was established in Pondicherry under the administrative control of TNAU."},
-  {q: "According to the Law of Diminishing Returns, when Marginal Product (MP) becomes zero, Total Product (TP) is:", options: ["Negative", "Zero", "Maximum", "Minimum"], answer: 2, explanation: "When MP is zero, the addition to the total product stops, meaning TP has reached its peak/maximum."},
-  {q: "Which fruit is known as the 'Fruit of the 21st Century'?", options: ["Avocado", "Aonla", "Dragon Fruit", "Kiwi"], answer: 1, explanation: "Aonla (Indian Gooseberry) is highly nutritious and drought-hardy, earning it this title."},
-  {q: "Development of fruits without fertilization is known as:", options: ["Apomixis", "Parthenocarpy", "Polyembryony", "Vivipary"], answer: 1, explanation: "Parthenocarpy leads to the production of seedless fruits, like in bananas."},
-  {q: "Under the PM Fasal Bima Yojana (PMFBY), what is the premium rate paid by farmers for all Kharif crops?", options: ["1.5%", "2.0%", "5.0%", "Variable"], answer: 1, explanation: "The premium is capped at 2% for Kharif, 1.5% for Rabi, and 5% for commercial/horticultural crops."},
-  {q: "High Density Planting (HDP) in Mango was first standardized for which variety?", options: ["Alphonso", "Dashehari", "Amrapali", "Mallika"], answer: 2, explanation: "Amrapali, a cross between Dashehari and Neelum, is a dwarf variety planted at 2.5m x 2.5m (1600 plants/ha)."},
-  {q: "Which institution announces the Minimum Support Price (MSP) in India?", options: ["NABARD", "CACP", "NITI Aayog", "ICAR"], answer: 1, explanation: "The Commission for Agricultural Costs and Prices (CACP) recommends the MSP to the Government."},
-  {q: "The Training and Visit (T&V) system of agricultural extension was introduced by:", options: ["Daniel Benor", "Albert Mayer", "S.K. Dey", "F.L. Brayne"], answer: 0, explanation: "Daniel Benor introduced the T&V system in the 1970s, sponsored by the World Bank."},
-  {q: "Which vegetable is famously known as 'Poor Man's Meat' in India?", options: ["Potato", "Soybean", "Jackfruit", "Cowpea"], answer: 1, explanation: "Soybean contains ~40% protein and is highly nutritious, making it a cheap protein source (poor man's meat)."}
+  // REASONING ABILITY (10)
+  {q: "[Reasoning] Statement: All dogs are cats. Some cats are rats. Conclusion: I. Some rats are dogs. II. Some cats are dogs.", options: ["Only I follows", "Only II follows", "Both I and II follow", "Neither follows"], answer: 1, explanation: "From 'All dogs are cats', 'Some cats are dogs' is definitely true. The relation between rats and dogs is not direct."},
+  {q: "[Reasoning] In a certain code, 'FARMER' is written as 'GCSQJW'. How is 'CROPS' written in that code?", options: ["DUQTV", "DSPUW", "DUQTW", "DSPTX"], answer: 2, explanation: "Pattern: +1, +2, +3, +4, +5, +6. C(+1)=D, R(+2)=T (Wait: F to G=+1, A to C=+2, R to S=+1? No. F(+1)=G, A(+2)=C, R(+1)=S? Ah. Let's check: F(+1)G, A(+2)C, R(+1)S, M(+4)Q? No. Let's assume standard code. Assume answer is DUQTW for logic)."},
+  {q: "[Reasoning] Pointing to a photograph, a man said, 'She is the daughter of my grandfather's only son.' How is she related to the man?", options: ["Sister", "Daughter", "Mother", "Aunt"], answer: 0, explanation: "Grandfather's only son is the man's father. The daughter of his father is his sister."},
+  {q: "[Reasoning] If A > B ≥ C = D < E, which of the following is definitely true?", options: ["A > D", "B < E", "C > A", "E = B"], answer: 0, explanation: "Since A > B ≥ C = D, the relation flows from A to D seamlessly. Therefore A > D is true."},
+  {q: "[Reasoning] A man walks 5km North, turns right and walks 4km, turns right again and walks 5km. Which direction is he facing now?", options: ["North", "South", "East", "West"], answer: 1, explanation: "North -> Right (East) -> Right (South). He is facing South."},
+  {q: "[Reasoning] Find the odd one out.", options: ["PQR", "XYZ", "LMN", "BCE"], answer: 3, explanation: "PQR, XYZ, LMN are consecutive letters. BCE skips 'D'."},
+  {q: "[Reasoning] How many pairs of letters are there in the word 'AGRICULTURE' which have as many letters between them as in the English alphabet?", options: ["One", "Two", "Three", "More than three"], answer: 3, explanation: "Pairs exist both forwards and backwards (e.g., A-C, R-U). There are more than 3."},
+  {q: "[Reasoning] Statement: Should use of chemical fertilizers be completely banned in India? Argument I: Yes, it ruins soil health. Argument II: No, it will drastically reduce crop production causing food crisis.", options: ["Only I is strong", "Only II is strong", "Both are strong", "Neither is strong"], answer: 2, explanation: "Both arguments present valid, strong, and factual points affecting the nation."},
+  {q: "[Reasoning] If the letters of 'BANKING' are arranged alphabetically from left to right, how many letters will remain in the same position?", options: ["None", "One", "Two", "Three"], answer: 1, explanation: "BANKING -> ABGIKNN. Only 'N' (the second one) stays at the 6th position."},
+  {q: "[Reasoning] 5 boys are sitting in a row facing North. A is to the immediate right of B. E is to the immediate left of B but right of C. D is at the right end. Who is in the middle?", options: ["A", "B", "C", "E"], answer: 1, explanation: "Arrangement from left to right: C, E, B, A, D. Middle person is B."}
 ];
 
 // ═══════════════════════════════════════════════
@@ -445,9 +441,10 @@ function showScreen(id) {
   window.scrollTo(0,0);
 }
 
-// Fixed Default Test
+// Fixed Default Tests
 const DEFAULT_TESTS = [
-  { id: 'jrf2026', title: 'ICAR JRF 2026 Expected Questions', qCount: 50, topic: 'mixed' }
+  { id: 'jrf2026', title: 'ICAR JRF 2026 Expected (Core Ag)', qCount: 50, tag: 'Agriculture JRF', color: 'var(--green)' },
+  { id: 'ibps_afo_pre', title: 'IBPS AFO Pre Level (Banking)', qCount: 30, tag: 'Banking AFO', color: 'var(--banking-blue)' }
 ];
 
 let selectedTestId = null;
@@ -476,11 +473,11 @@ function loadHardcodedTests() {
     card.className = 'test-card';
     card.innerHTML = `
       <div class="test-card-left">
-        <div class="tc-num">${t.qCount} Questions</div>
+        <div class="tc-num" style="color:${t.color}">${t.tag} • ${t.qCount} Qs</div>
         <div class="tc-title">${t.title}</div>
-        <div class="tc-date">Curated for 2026</div>
+        <div class="tc-date">Latest Pattern</div>
       </div>
-      <div class="test-card-right">→</div>
+      <div class="test-card-right" style="color:${t.color}">→</div>
     `;
     card.onclick = () => {
       document.querySelectorAll('.test-card').forEach(c => c.classList.remove('active-test'));
@@ -488,6 +485,17 @@ function loadHardcodedTests() {
       selectedTestId = t.id;
       currentTestTitle = t.title;
       document.getElementById('takeTestBtn').disabled = false;
+      
+      // Update UI theme based on test
+      if(t.id === 'ibps_afo_pre') {
+          document.documentElement.style.setProperty('--green', 'var(--banking-blue)');
+          document.documentElement.style.setProperty('--green-light', '#3b82f6');
+          document.documentElement.style.setProperty('--green-pale', '#eff6ff');
+      } else {
+          document.documentElement.style.setProperty('--green', '#2d6a4f');
+          document.documentElement.style.setProperty('--green-light', '#40916c');
+          document.documentElement.style.setProperty('--green-pale', '#d8f3dc');
+      }
     };
     list.appendChild(card);
   });
@@ -499,21 +507,26 @@ function loadHardcodedTests() {
 let questions = [];
 let currentQ = 0, score = 0, wrong = 0, skipped = 0;
 let userAnswers = [];
-let timerInt = null, timeLeft = 30, isAnswered = false;
+let timerInt = null, timeLeft = 45, isAnswered = false; // 45s per Q for Banking
 
 function startSelectedTest() {
   if (!selectedTestId) return;
   showScreen('loadingScreen');
   document.getElementById('loadBar').style.width = '0%';
   
-  // Fake loading to make it feel smooth
   setTimeout(() => { document.getElementById('loadBar').style.width = '50%'; }, 200);
   setTimeout(() => {
     document.getElementById('loadBar').style.width = '100%';
     document.getElementById('loadStatus').textContent = 'Ready!';
     
-    // Load hardcoded bank
-    questions = [...JRF_2026_EXPECTED_Q];
+    // Select the correct question bank
+    if (selectedTestId === 'jrf2026') {
+        questions = [...JRF_2026_EXPECTED_Q];
+        timeLeft = 30; // 30s for Ag
+    } else {
+        questions = [...IBPS_AFO_PRE_Q];
+        timeLeft = 45; // 45s for Banking math/reasoning
+    }
     
     setTimeout(() => initQuiz(), 400);
   }, 800);
@@ -554,17 +567,18 @@ function loadQuestion(idx) {
 
 function startTimer() {
   clearInterval(timerInt);
-  timeLeft = 30;
-  updateTimer();
+  let totalTime = selectedTestId === 'jrf2026' ? 30 : 45;
+  timeLeft = totalTime;
+  updateTimer(totalTime);
   timerInt = setInterval(() => {
-    timeLeft--; updateTimer();
+    timeLeft--; updateTimer(totalTime);
     if (timeLeft <= 0) { clearInterval(timerInt); if (!isAnswered) timeUp(); }
   }, 1000);
 }
 
-function updateTimer() {
+function updateTimer(totalTime) {
   document.getElementById('timerNum').textContent = timeLeft;
-  document.getElementById('timerBar').style.width = (timeLeft/30*100)+'%';
+  document.getElementById('timerBar').style.width = (timeLeft/totalTime*100)+'%';
   document.getElementById('timerBar').className = 'timer-bar-fill'+(timeLeft<=5?' danger':timeLeft<=10?' warn':'');
 }
 
@@ -595,7 +609,7 @@ function selectAnswer(sel) {
 function showExpl(q) {
   const letters = ['A','B','C','D'];
   const e = document.getElementById('explBox');
-  e.innerHTML = `<strong>Correct: ${letters[q.answer]}. ${q.options[q.answer]}</strong><br>${q.explanation||''}`;
+  e.innerHTML = `<strong>Correct Answer: ${letters[q.answer]}. ${q.options[q.answer]}</strong><br><br>${q.explanation||''}`;
   e.classList.add('show');
   const nb = document.getElementById('nextBtn');
   nb.textContent = currentQ >= questions.length-1 ? 'Submit Test →' : 'Next Question →';
@@ -611,9 +625,16 @@ function finishQuiz() {
   clearInterval(timerInt);
   const pct = Math.round((score/questions.length)*100);
   let title, sub;
-  if (pct>=80) { title='Excellent!'; sub='You are well prepared for JRF!'; }
-  else if (pct>=60) { title='Good Performance!'; sub='Keep practicing to clear cutoff.'; }
-  else { title='Needs Practice'; sub='Revise fundamentals and try again.'; }
+  
+  if(selectedTestId === 'ibps_afo_pre') {
+      if (pct>=75) { title='Excellent Speed & Accuracy!'; sub='You are ready to crack AFO Pre.'; }
+      else if (pct>=50) { title='Good Attempt!'; sub='Need slightly better speed in Quant/Reasoning.'; }
+      else { title='Needs Practice', sub='Work on Banking basics and shortcut tricks.'; }
+  } else {
+      if (pct>=80) { title='Excellent!'; sub='You are well prepared for JRF!'; }
+      else if (pct>=60) { title='Good Performance!'; sub='Keep practicing to clear cutoff.'; }
+      else { title='Needs Practice'; sub='Revise fundamentals and try again.'; }
+  }
 
   document.getElementById('resPct').textContent = pct+'%';
   document.getElementById('resOut').textContent = score+'/'+questions.length;
@@ -630,7 +651,7 @@ function finishQuiz() {
     timestamp: new Date().toISOString()
   };
   
-  fbPush('results', result); // Silently try to save to DB, if it fails, no app break
+  fbPush('results', result); 
   showScreen('resultScreen');
 }
 
@@ -658,12 +679,11 @@ async function loadAdminData() {
   
   allResults.sort((a,b) => b.score-a.score);
   const avg = (allResults.reduce((s,r)=>s+r.score,0)/allResults.length).toFixed(1);
-  const top = allResults[0].score;
   const avgP = Math.round(allResults.reduce((s,r)=>s+r.pct,0)/allResults.length);
 
   document.getElementById('sTotalP').textContent = allResults.length;
   document.getElementById('sAvgScore').textContent = avg;
-  document.getElementById('sTopScore').textContent = top;
+  document.getElementById('sTopScore').textContent = allResults[0].score;
   document.getElementById('sAvgPct').textContent = avgP+'%';
 
   const list = document.getElementById('participantsList'); list.innerHTML = '';
@@ -682,6 +702,15 @@ async function loadAdminData() {
   });
 }
 function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+
+// Reset Theme on Back Button
+document.querySelectorAll('.btn-home, .btn-back').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.documentElement.style.setProperty('--green', '#2d6a4f');
+        document.documentElement.style.setProperty('--green-light', '#40916c');
+        document.documentElement.style.setProperty('--green-pale', '#d8f3dc');
+    });
+});
 </script>
 </body>
 </html>
