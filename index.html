@@ -518,12 +518,9 @@ async function fbPut(p, d) {
 
 // FAIL-SAFE: LocalStorage for Results
 function saveResultLocal(res) {
-  // Save locally so it ALWAYS shows in admin panel
   let localResults = JSON.parse(localStorage.getItem('agri_results') || '[]');
   localResults.push(res);
   localStorage.setItem('agri_results', JSON.stringify(localResults));
-  
-  // Try pushing to Firebase in background
   fbPush('results', res);
 }
 
@@ -532,7 +529,6 @@ async function getResultsAll() {
   let local = JSON.parse(localStorage.getItem('agri_results') || '[]');
   let fb = await fbGet('results');
   if(fb) {
-    // Merge Firebase data into LocalStorage (avoiding duplicates via timestamp)
     Object.values(fb).forEach(fbItem => {
       if(!local.find(l => l.timestamp === fbItem.timestamp)) local.push(fbItem);
     });
@@ -546,7 +542,7 @@ async function getCustomTestsAll() {
   let local = JSON.parse(localStorage.getItem('agri_custom_tests') || '{}');
   let fb = await fbGet('custom_tests');
   if(fb) {
-    local = { ...local, ...fb }; // Merge
+    local = { ...local, ...fb }; 
     localStorage.setItem('agri_custom_tests', JSON.stringify(local));
   }
   return local;
@@ -559,15 +555,92 @@ async function saveCustomTestsLocal(testsObj) {
 
 
 // ==========================================
-// 2. DEFAULT HARDCODED QUESTIONS
+// 2. DEFAULT HARDCODED QUESTIONS (ALL 50 + 30 RESTORED)
 // ==========================================
-const JRF_Q = [
+const JRF_Q=[
   {q:"Which form of nitrogen is predominantly present in the newly introduced 'Nano Urea' in India?",options:["Amide form","Nanoscale nitrogen polymers","Nitrate form","Ammoniacal form"],answer:1,explanation:"Nano Urea liquid contains nanoscale nitrogen particles (polymers) with higher surface area.",subject:"Agronomy"},
-  {q:"Under the PM PRANAM scheme, what is the primary objective?",options:["Promote micro-irrigation","Incentivize states to reduce chemical fertilizers","Provide free seeds","Ensure MSP"],answer:1,explanation:"PM PRANAM aims to reduce chemical fertilizer use by incentivizing states.",subject:"Agri Policy"}
-  // ... Keep it short for space, add your 50 here if you want
+  {q:"Under the PM PRANAM scheme, what is the primary objective?",options:["Promote micro-irrigation","Incentivize states to reduce chemical fertilizers","Provide free seeds","Ensure MSP"],answer:1,explanation:"PM PRANAM aims to reduce chemical fertilizer use by incentivizing states.",subject:"Agri Policy"},
+  {q:"Conservation Agriculture is based on which principles?",options:["Intensive tillage","Minimum soil disturbance & crop rotation","Maximum chemical use","Monocropping"],answer:1,explanation:"3 pillars: Minimum tillage, permanent soil cover, diversified crop rotations.",subject:"Agronomy"},
+  {q:"Which herbicide is commonly used as an anti-transpirant?",options:["Atrazine","Glyphosate","Paraquat","Pendimethalin"],answer:0,explanation:"Atrazine at low concentrations acts as a stomatal closing anti-transpirant.",subject:"Agronomy"},
+  {q:"SRI requires what age of seedlings for transplanting?",options:["21-25 days","8-12 days","30-35 days","40-45 days"],answer:1,explanation:"Young seedlings of 8-12 days (2-leaf stage) are used in SRI.",subject:"Agronomy"},
+  {q:"Harvest Index of a crop producing 40q grain and 60q straw per ha?",options:["40%","60%","66%","150%"],answer:0,explanation:"HI = (40/100) × 100 = 40%.",subject:"Agronomy"},
+  {q:"Which among the following is a C4 weed?",options:["Chenopodium album","Phalaris minor","Cyperus rotundus","Avena fatua"],answer:2,explanation:"Cyperus rotundus (Purple nutsedge) is a highly competitive C4 weed.",subject:"Weed Science"},
+  {q:"The term 'Allelopathy' was first coined by?",options:["Hans Molisch","Liebig","Jethro Tull","Donald"],answer:0,explanation:"Hans Molisch coined Allelopathy in 1937.",subject:"Agronomy"},
+  {q:"NDVI stands for?",options:["Normalized Difference Vegetation Index","Net Digital Vegetative Indicator","National Drought Variable Index","Normalized Digital Visual Index"],answer:0,explanation:"NDVI uses NIR and Red light to calculate crop vigor.",subject:"Precision Farming"},
+  {q:"Which crop has the highest water use efficiency?",options:["Rice","Wheat","Finger millet","Sorghum"],answer:2,explanation:"Finger millet is a C4 crop with high WUE and drought tolerance.",subject:"Agronomy"},
+  {q:"Which soil order is associated with Black Cotton Soils of India?",options:["Alfisol","Vertisol","Entisol","Inceptisol"],answer:1,explanation:"Vertisols are rich in montmorillonite clay causing shrink-swell.",subject:"Soil Science"},
+  {q:"Ideal C:N ratio of normal cultivable soil?",options:["10:1 to 12:1","20:1 to 30:1","100:1","5:1"],answer:0,explanation:"Average C:N ratio of normal soils is 10:1 to 12:1.",subject:"Soil Science"},
+  {q:"Which element was added as the 17th essential plant nutrient?",options:["Cobalt","Silicon","Nickel","Vanadium"],answer:2,explanation:"Nickel (Ni) is required for the enzyme urease.",subject:"Plant Nutrition"},
+  {q:"EC of saline soils at 25°C is generally:",options:["< 4 dS/m","> 4 dS/m","Zero","Negative"],answer:1,explanation:"Saline soils have EC > 4 dS/m.",subject:"Soil Science"},
+  {q:"Which clay mineral has the highest Cation Exchange Capacity?",options:["Kaolinite","Illite","Montmorillonite","Vermiculite"],answer:3,explanation:"Vermiculite has highest CEC (100-150 meq/100g).",subject:"Soil Science"},
+  {q:"Denitrification in soil occurs predominantly under which condition?",options:["Aerobic","Anaerobic","High pH","Low temperature"],answer:1,explanation:"Carried out by anaerobic bacteria in waterlogged soils.",subject:"Soil Microbiology"},
+  {q:"VAM is highly useful for mobilization of which nutrient?",options:["Nitrogen","Phosphorus","Potassium","Sulphur"],answer:1,explanation:"VAM fungi significantly increase phosphorus uptake.",subject:"Soil Microbiology"},
+  {q:"'Khaira' disease in rice is caused by deficiency of:",options:["Iron","Zinc","Manganese","Copper"],answer:1,explanation:"Zinc deficiency in flooded soils causes Khaira.",subject:"Plant Nutrition"},
+  {q:"Equivalent acidity of Ammonium Sulphate?",options:["110","93","80","128"],answer:0,explanation:"Requires 110 kg CaCO3 to neutralize 100 kg of fertilizer.",subject:"Plant Nutrition"},
+  {q:"Reclamation of alkali soils is done by adding:",options:["Lime","Gypsum","Urea","Rock Phosphate"],answer:1,explanation:"Gypsum provides Ca which replaces excess Na.",subject:"Soil Science"},
+  {q:"The term 'Genetics' was coined by:",options:["Gregor Mendel","W. Bateson","T.H. Morgan","Hugo de Vries"],answer:1,explanation:"William Bateson coined the term in 1905.",subject:"Genetics"},
+  {q:"Which gene editing technology is revolutionizing crop breeding?",options:["RNAi","ZFNs","CRISPR-Cas9","TALENs"],answer:2,explanation:"CRISPR-Cas9 acts as genetic scissors for precise editing.",subject:"Biotechnology"},
+  {q:"Cross of F1 hybrid with its recessive parent is known as:",options:["Back cross","Test cross","Top cross","Diallel cross"],answer:1,explanation:"Test Cross determines the genotype of an individual with dominant phenotype.",subject:"Genetics"},
+  {q:"Basic chromosome number (x) of wheat is:",options:["7","14","21","42"],answer:0,explanation:"Bread wheat is hexaploid (2n=6x=42), so x=7.",subject:"Plant Breeding"},
+  {q:"Golden Rice is biofortified with:",options:["Vitamin C","Beta-carotene","Iron","Zinc"],answer:1,explanation:"Engineered to produce beta-carotene (Vitamin A precursor).",subject:"Biotechnology"},
+  {q:"Cytoplasmic Male Sterility (CMS) is governed by genes in:",options:["Nucleus","Chloroplast","Mitochondria","Ribosome"],answer:2,explanation:"CMS is maternally inherited, determined by mitochondrial genome.",subject:"Plant Breeding"},
+  {q:"Rapid production of homozygous lines is achieved through:",options:["Pedigree method","Bulk method","Doubled haploidy","Mass selection"],answer:2,explanation:"Doubled haploidy produces 100% homozygous lines in one generation.",subject:"Plant Breeding"},
+  {q:"Nullisomic condition is represented as:",options:["2n-1","2n-2","2n+1","2n+2"],answer:1,explanation:"Loss of a complete pair of homologous chromosomes.",subject:"Genetics"},
+  {q:"Which chemical is used to induce polyploidy?",options:["EMS","Colchicine","Sodium azide","Ethidium bromide"],answer:1,explanation:"Colchicine inhibits spindle fiber formation, doubling chromosomes.",subject:"Plant Breeding"},
+  {q:"One gene controlling multiple phenotypic traits is called:",options:["Epistasis","Pleiotropy","Polygeny","Penetrance"],answer:1,explanation:"Pleiotropy = one gene influences two or more phenotypic traits.",subject:"Genetics"},
+  {q:"Which rust of wheat is known as 'Killer Rust'?",options:["Brown rust","Yellow rust","Black stem rust","White rust"],answer:2,explanation:"Black stem rust (Puccinia graminis) can completely destroy a crop.",subject:"Plant Pathology"},
+  {q:"Bordeaux mixture was discovered to control:",options:["Late blight","Downy mildew of grapevine","Powdery mildew","Ergot"],answer:1,explanation:"Discovered in France by Millardet to save grapevines.",subject:"Plant Pathology"},
+  {q:"Tikka disease of groundnut is caused by:",options:["Fungus","Bacteria","Virus","Nematode"],answer:0,explanation:"Caused by fungi Cercospora arachidicola.",subject:"Plant Pathology"},
+  {q:"Which insect vector transmits Leaf Curl Virus in Cotton?",options:["Aphid","Jassid","Whitefly","Thrips"],answer:2,explanation:"Whitefly (Bemisia tabaci) is the primary vector.",subject:"Entomology"},
+  {q:"Bt Cotton provides resistance against:",options:["Sucking pests","Bollworms","Termites","Root grubs"],answer:1,explanation:"Toxic to lepidopteran larvae like the pink bollworm.",subject:"Biotechnology"},
+  {q:"'Panama wilt' in banana is caused by:",options:["Xanthomonas","Fusarium oxysporum","Pseudomonas","Phytophthora"],answer:1,explanation:"Caused by Fusarium oxysporum f.sp. cubense.",subject:"Plant Pathology"},
+  {q:"Economic Threshold Level (ETL) indicates:",options:["Density for applying control measures","Zero pest population","Maximum damage level","Natural enemy population"],answer:0,explanation:"Density at which action should be taken to prevent economic injury.",subject:"Entomology"},
+  {q:"Root-knot nematodes belong to genus:",options:["Heterodera","Meloidogyne","Globodera","Pratylenchus"],answer:1,explanation:"Meloidogyne species cause root knots worldwide.",subject:"Nematology"},
+  {q:"First systemic fungicide discovered:",options:["Carboxin","Mancozeb","Thiram","Captan"],answer:0,explanation:"Vitavax (Carboxin) was discovered in 1966.",subject:"Plant Pathology"},
+  {q:"A pheromone trap attracts:",options:["Female insects","Male insects","Both","Larvae"],answer:1,explanation:"Uses synthetic female sex pheromones to trap males.",subject:"Entomology"},
+  {q:"'e-NAM' stands for:",options:["Electronic National Agriculture Mission","Electronic National Agriculture Market","Electronic Network of Mandis","Electronic New Agriculture Model"],answer:1,explanation:"Pan-India electronic trading portal for APMC mandis.",subject:"Agri Policy"},
+  {q:"First KVK in India was established in 1974 at:",options:["New Delhi","Ludhiana","Pondicherry","Pantnagar"],answer:2,explanation:"Established in Pondicherry under Tamil Nadu Agricultural University.",subject:"Extension"},
+  {q:"When Marginal Product (MP) becomes zero, Total Product (TP) is:",options:["Negative","Zero","Maximum","Minimum"],answer:2,explanation:"TP reaches its maximum when MP equals zero.",subject:"Agri Economics"},
+  {q:"Which fruit is known as 'Fruit of the 21st Century'?",options:["Avocado","Aonla","Dragon Fruit","Kiwi"],answer:1,explanation:"Aonla (Indian Gooseberry) is highly nutritious and hardy.",subject:"Horticulture"},
+  {q:"Development of fruits without fertilization is known as:",options:["Apomixis","Parthenocarpy","Polyembryony","Vivipary"],answer:1,explanation:"Parthenocarpy leads to seedless fruits like bananas.",subject:"Horticulture"},
+  {q:"Under PMFBY, premium rate for Kharif crops is:",options:["1.5%","2.0%","5.0%","Variable"],answer:1,explanation:"2% for Kharif, 1.5% for Rabi, 5% for commercial crops.",subject:"Agri Policy"},
+  {q:"HDP in Mango was first standardized for variety:",options:["Alphonso","Dashehari","Amrapali","Mallika"],answer:2,explanation:"Amrapali is a dwarf variety planted at 2.5m × 2.5m.",subject:"Horticulture"},
+  {q:"Which institution recommends MSP in India?",options:["NABARD","CACP","NITI Aayog","ICAR"],answer:1,explanation:"Commission for Agricultural Costs and Prices (CACP) recommends MSP.",subject:"Agri Policy"},
+  {q:"The Training and Visit (T&V) system was introduced by:",options:["Daniel Benor","Albert Mayer","S.K. Dey","F.L. Brayne"],answer:0,explanation:"Introduced in the 1970s, sponsored by the World Bank.",subject:"Extension"},
+  {q:"Which vegetable is known as 'Poor Man's Meat' in India?",options:["Potato","Soybean","Jackfruit","Cowpea"],answer:1,explanation:"Soybean contains ~40% protein.",subject:"Horticulture"}
 ];
-const IBPS_Q = [
-  {q:"[English] Synonym of 'PROLIFIC':",options:["Barren","Productive","Scarce","Dull"],answer:1,explanation:"Prolific means producing a large amount (Productive).",subject:"English"}
+
+const IBPS_Q=[
+  {q:"[English] Synonym of 'PROLIFIC':",options:["Barren","Productive","Scarce","Dull"],answer:1,explanation:"Prolific means producing a large amount (Productive).",subject:"English"},
+  {q:"[English] Error: 'Neither the manager nor the employees was aware of the new policy.'",options:["Neither the manager","nor the employees","was aware of","No Error"],answer:2,explanation:"Proximity rule: 'employees' is closer, verb should be 'were'.",subject:"English"},
+  {q:"[English] Fill blank: The committee _____ divided on the agricultural bill.",options:["is","are","has","have"],answer:1,explanation:"Collective noun with divided opinions takes plural verb 'are'.",subject:"English"},
+  {q:"[English] Antonym of 'MITIGATE':",options:["Alleviate","Aggravate","Appease","Soothe"],answer:1,explanation:"Mitigate = make less severe. Aggravate = make worse.",subject:"English"},
+  {q:"[English] Correctly spelt word:",options:["Acommodation","Accommodation","Accomodation","Acomodation"],answer:1,explanation:"Accommodation — double 'c', double 'm'.",subject:"English"},
+  {q:"[English] 'To beat around the bush' means:",options:["Search carefully","Avoid coming to the point","Clean the garden","Talk loudly"],answer:1,explanation:"Means discussing without getting to the main point.",subject:"English"},
+  {q:"[English] One word for: 'Person indifferent to pleasure or pain'",options:["Stoic","Cynic","Ascetic","Epicure"],answer:0,explanation:"A Stoic endures hardship without complaint.",subject:"English"},
+  {q:"[English] He is good _____ mathematics.",options:["in","with","at","about"],answer:2,explanation:"Correct preposition with 'good' for skills is 'at'.",subject:"English"},
+  {q:"[English] Error: 'One of the boys have completed the assignment.'",options:["One of the","boys","have completed","the assignment"],answer:2,explanation:"'One of the' takes singular verb. 'have' → 'has'.",subject:"English"},
+  {q:"[English] Rearrange: (A)of the farmers/(B)by the recent floods/(C)the livelihoods/(D)have been destroyed",options:["CBAD","CABD","DCBA","ACBD"],answer:1,explanation:"Correct: The livelihoods(C) of the farmers(A) by the floods(B) have been destroyed(D) = CABD.",subject:"English"},
+  {q:"[Quant] Missing number: 5, 11, 23, 47, 95, ?",options:["189","191","193","196"],answer:1,explanation:"Pattern: n×2+1. So 95×2+1=191.",subject:"Quantitative"},
+  {q:"[Quant] Train 150m at 68 km/h passes man running 8 km/h same direction. Time?",options:["9 sec","10 sec","12 sec","15 sec"],answer:0,explanation:"Relative speed=60 km/h=50/3 m/s. Time=150÷(50/3)=9 sec.",subject:"Quantitative"},
+  {q:"[Quant] x²-7x+12=0; y²-9y+20=0. Relation between x and y?",options:["x > y","x < y","x ≥ y","x ≤ y"],answer:3,explanation:"x: 3,4. y: 4,5. So x ≤ y.",subject:"Quantitative"},
+  {q:"[Quant] SI for 3 years=₹240, CI for 2 years=₹170. Rate?",options:["8%","10%","12.5%","15%"],answer:2,explanation:"SI/yr=80. Diff in CI 2nd yr=10. Rate=(10/80)×100=12.5%.",subject:"Quantitative"},
+  {q:"[Quant] A does work in 10 days, B in 15 days. Together 5 days. Work left?",options:["1/6","1/2","1/3","2/3"],answer:0,explanation:"Together 1/day=1/6. In 5 days=5/6. Left=1/6.",subject:"Quantitative"},
+  {q:"[Quant] Age ratio A:B=4:5. After 5 yrs ratio=5:6. A's present age?",options:["15 yr","20 yr","25 yr","30 yr"],answer:1,explanation:"(4x+5)/(5x+5)=5/6 → x=5. A=4×5=20.",subject:"Quantitative"},
+  {q:"[Quant] Sugar price↑20%. Consumption must reduce by?",options:["16.66%","20%","25%","15%"],answer:0,explanation:"Reduction=(20/120)×100=16.66%.",subject:"Quantitative"},
+  {q:"[Quant] Discount 10% on MP, profit 8%, CP=₹500. MP=?",options:["₹550","₹600","₹650","₹700"],answer:1,explanation:"SP=540. 0.9×MP=540 → MP=₹600.",subject:"Quantitative"},
+  {q:"[Quant] Probability of sum 9 when two dice thrown?",options:["1/9","1/12","1/6","5/36"],answer:0,explanation:"Favourable: (3,6)(4,5)(5,4)(6,3)=4. Prob=4/36=1/9.",subject:"Quantitative"},
+  {q:"[Quant] 45% of 600 + ? = 15×25. Find ?",options:["95","105","115","125"],answer:1,explanation:"270+?=375 → ?=105.",subject:"Quantitative"},
+  {q:"[Reasoning] All dogs are cats. Some cats are rats. Conclusion: I.Some rats are dogs. II.Some cats are dogs.",options:["Only I","Only II","Both","Neither"],answer:1,explanation:"All dogs→cats implies some cats are dogs. Rats-dogs not established.",subject:"Reasoning"},
+  {q:"[Reasoning] Pointing to photo: 'She is daughter of my grandfather's only son.' Relation?",options:["Sister","Daughter","Mother","Aunt"],answer:0,explanation:"Grandfather's only son=his father. Father's daughter=his sister.",subject:"Reasoning"},
+  {q:"[Reasoning] If A>B≥C=D<E, which is definitely true?",options:["A>D","B<E","C>A","E=B"],answer:0,explanation:"A>B≥C=D so A>D is definitely true.",subject:"Reasoning"},
+  {q:"[Reasoning] Man walks 5km North, right 4km, right again 5km. Facing?",options:["North","South","East","West"],answer:1,explanation:"North→Right(East)→Right(South). Facing South.",subject:"Reasoning"},
+  {q:"[Reasoning] Odd one out:",options:["PQR","XYZ","LMN","BCE"],answer:3,explanation:"PQR, XYZ, LMN are consecutive letters. BCE skips 'D'.",subject:"Reasoning"},
+  {q:"[Reasoning] Ban chemical fertilizers? Arg I: Ruins soil. Arg II: Causes food crisis.",options:["Only I strong","Only II strong","Both strong","Neither strong"],answer:2,explanation:"Both arguments present valid factual points.",subject:"Reasoning"},
+  {q:"[Reasoning] Letters of 'BANKING' alphabetically — how many stay at same position?",options:["None","One","Two","Three"],answer:1,explanation:"BANKING→ABGIKNN. Only one letter stays at same position.",subject:"Reasoning"},
+  {q:"[Reasoning] 5 boys: A right of B. E left of B, right of C. D at right end. Middle?",options:["A","B","C","E"],answer:1,explanation:"Order: C,E,B,A,D. Middle=B.",subject:"Reasoning"},
+  {q:"[Reasoning] Series: 2, 6, 12, 20, 30, ?",options:["40","42","44","48"],answer:1,explanation:"Differences: 4,6,8,10,12. Next=30+12=42.",subject:"Reasoning"},
+  {q:"[Reasoning] If HELP=8512, then MEND=?",options:["4563","4553","4653","4664"],answer:0,explanation:"Each letter coded by digit sum of position. M(13)=4,E=5,N(14)=5,D(4)=3 → 4563.",subject:"Reasoning"}
 ];
 
 const DEFAULT_TESTS=[
@@ -792,7 +865,7 @@ function finishQuiz(){
   const net=netScore.toFixed(2);
   document.getElementById('netScoreDisplay').textContent=net;
   
-  // FAIL-SAFE SAVE (Will always show in admin panel)
+  // FAIL-SAFE SAVE
   saveResultLocal({
     name: document.getElementById('participantName').value.trim(),
     testTitle: currentTestTitle, testId: selectedTestId,
@@ -854,7 +927,7 @@ function switchAdminTab(tab){
 
 async function loadAdminData(){
   document.getElementById('participantsList').innerHTML='<div class="empty">Loading Data...</div>';
-  adminAllResults = await getResultsAll(); // Pulls from LocalStorage AND Firebase securely
+  adminAllResults = await getResultsAll(); 
   renderAdmin();
 }
 
