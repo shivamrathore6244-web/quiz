@@ -727,7 +727,7 @@ function filterReview(type){
 }
 
 // 5. ADMIN PANEL & AI CREATION
-const ADMIN_PASS='admin123';
+const ADMIN_PASS='shivam@2025';
 function showAdminLogin(){ showScreen('adminLoginScreen'); document.getElementById('passErr').style.display='none'; }
 function checkAdminPass(){ if(document.getElementById('adminPassInput').value===ADMIN_PASS){ showScreen('adminScreen'); loadAdminData(); loadAdminTests(); } else document.getElementById('passErr').style.display='block'; }
 function switchAdminTab(tab){ document.getElementById('tabBtnResults').classList.remove('active-tab'); document.getElementById('tabBtnManage').classList.remove('active-tab'); if(tab==='results') { document.getElementById('tabBtnResults').classList.add('active-tab'); document.getElementById('adminSecResults').style.display='block'; document.getElementById('adminSecManage').style.display='none'; } else { document.getElementById('tabBtnManage').classList.add('active-tab'); document.getElementById('adminSecManage').style.display='block'; document.getElementById('adminSecResults').style.display='none'; } }
