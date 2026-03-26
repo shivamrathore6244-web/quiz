@@ -90,12 +90,11 @@ textarea.text-input { resize: vertical; min-height: 80px; }
 .opt-letter { min-width:28px; height:28px; border-radius:50%; background:var(--bg); border:1.5px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:var(--text3); flex-shrink:0; transition:all 0.12s; }
 .opt-btn:hover .opt-letter { background:var(--text); border-color:var(--text); color:#fff; }
 
-/* NEW SELECTED STATE */
+/* SELECTED STATE (No Correct/Wrong shown during quiz) */
 .opt-btn.selected { border-color:var(--blue); background:var(--blue-bg); }
 .opt-btn.selected .opt-letter { background:var(--blue); border-color:var(--blue); color:#fff; }
 
 .quiz-nav-row { display:flex; gap:10px; margin-top: 15px; }
-
 .neg-warn { display:flex; align-items:center; gap:6px; background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:8px 14px; font-size:12px; color:var(--text2); margin-bottom:10px; }
 
 /* MODAL */
@@ -273,7 +272,7 @@ textarea.text-input { resize: vertical; min-height: 80px; }
       <div class="q-text" id="qText"></div>
     </div>
     <div class="neg-warn" id="negWarn">
-        <span>ℹ️ Select an option and click Next. Answers revealed at the end.</span>
+        <span>ℹ️ Select option and click Next. Answers revealed at end.</span>
         <span style="margin-left:auto; font-weight:600;">+<span id="correctMarkDisplay">1</span> / −<span id="negVal">0.25</span></span>
     </div>
     <div class="options" id="optionsBox"></div>
@@ -458,12 +457,12 @@ textarea.text-input { resize: vertical; min-height: 80px; }
 </div>
 
 <script>
-// 1. DATA STORAGE
+// 1. DATA STORAGE (Firebase + LocalStorage Fallback)
 const FB_URL = 'https://jrf1-9b59f-default-rtdb.firebaseio.com';
 
-async function fbGet(p) { try { const r = await fetch(`${FB_URL}/${p}.json`); if(r.ok) return await r.json(); } catch(e) {} return null; }
-async function fbPush(p, d) { try { await fetch(`${FB_URL}/${p}.json`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) }); } catch(e) {} }
-async function fbPut(p, d) { try { await fetch(`${FB_URL}/${p}.json`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) }); } catch(e) {} }
+async function fbGet(p) { try { const r = await fetch(`${FB_URL}/${p}.json`); if(r.ok) return await r.json(); } catch(e) { console.warn("FB Read Err", e); } return null; }
+async function fbPush(p, d) { try { await fetch(`${FB_URL}/${p}.json`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) }); } catch(e) { console.warn("FB Write Err", e); } }
+async function fbPut(p, d) { try { await fetch(`${FB_URL}/${p}.json`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) }); } catch(e) { console.warn("FB Write Err", e); } }
 
 function saveResultLocal(res) {
   let localResults = JSON.parse(localStorage.getItem('agri_results') || '[]'); localResults.push(res); localStorage.setItem('agri_results', JSON.stringify(localResults)); fbPush('results', res);
@@ -619,7 +618,6 @@ function loadQuestion(idx){
   q.options.forEach((opt,i)=>{ 
     const btn=document.createElement('button'); btn.className='opt-btn'; 
     btn.innerHTML=`<span class="opt-letter">${letters[i]}</span><span class="opt-text">${opt}</span>`; 
-    // Ensure selected option remains selected if user navigates (currently forward only)
     if(userAnswers[idx] && userAnswers[idx].selected === i) btn.classList.add('selected');
     btn.onclick=()=>selectAnswer(i); box.appendChild(btn); 
   });
@@ -658,31 +656,22 @@ function handleSkip() {
 
 function moveToNext() {
     currentQ++;
-    if(currentQ >= questions.length) {
-        finishQuiz();
-    } else {
-        loadQuestion(currentQ);
-    }
+    if(currentQ >= questions.length) finishQuiz(); else loadQuestion(currentQ);
 }
 
 function showSubmitModal(){ 
   let pending = questions.length - Object.keys(userAnswers).length; 
-  if(!userAnswers[currentQ] || userAnswers[currentQ].selected === -1) pending++; // current not saved yet
+  if(!userAnswers[currentQ] || userAnswers[currentQ].selected === -1) pending++;
   document.getElementById('modalBody').textContent = pending > 0 ? `You have ${pending} unattempted questions. If you submit, they will be marked as skipped.` : 'You have answered all questions. Ready to submit?';
   document.getElementById('submitModal').classList.add('show'); 
 }
 function closeModal(){ document.getElementById('submitModal').classList.remove('show'); }
 
-function confirmSubmit(){ 
-  closeModal(); 
-  clearInterval(timerInt); 
-  finishQuiz(); 
-}
+function confirmSubmit(){ closeModal(); clearInterval(timerInt); finishQuiz(); }
 
 function finishQuiz(){
   clearInterval(timerInt);
   
-  // Calculate Final Scores strictly here to prevent double counting
   let finalScore = 0; let finalWrong = 0; let finalSkipped = 0; let finalNet = 0;
   
   for(let i=0; i<questions.length; i++) {
@@ -690,20 +679,14 @@ function finishQuiz(){
       if(!ans || ans.skipped || ans.selected === -1) {
           finalSkipped++;
       } else if (ans.selected === questions[i].answer) {
-          finalScore++;
-          finalNet += correctMark;
+          finalScore++; finalNet += correctMark;
       } else {
-          finalWrong++;
-          finalNet -= negMarking;
+          finalWrong++; finalNet -= negMarking;
       }
-      
-      // Ensure all blanks are filled with skipped objects for review
       if(!ans) userAnswers[i] = {selected:-1, correct:questions[i].answer, skipped:true};
   }
 
-  const total = questions.length; 
-  const pct = Math.round((finalScore/total)*100); 
-  const maxMarks = total * correctMark;
+  const total = questions.length; const pct = Math.round((finalScore/total)*100); const maxMarks = total * correctMark;
   
   document.getElementById('resBig').innerHTML=`${finalScore*correctMark}<span>/${maxMarks}</span>`; document.getElementById('resPctBadge').textContent=pct+'%'; document.getElementById('resTitle').textContent=pct>=60?'Great Job!':'Keep Practicing';
   document.getElementById('rCorrect').textContent=finalScore; document.getElementById('rWrong').textContent=finalWrong; document.getElementById('rSkipped').textContent=finalSkipped; document.getElementById('rAttempted').textContent=finalScore+finalWrong;
@@ -717,18 +700,29 @@ function finishQuiz(){
 
 function showReview(){ showScreen('reviewScreen'); filterReview('all'); }
 function filterReview(type){
-  ['all','correct','wrong','skip'].forEach(k=>document.getElementById('rf-'+(k==='skip'?'s':k[0])).className='f-btn'+(type===k?' f'+(k==='skip'?'s':k[0]):''));
-  const list=document.getElementById('reviewList'); list.innerHTML='';
-  questions.forEach((q,i)=>{ 
-    const ua=userAnswers[i];
+  const ids = { all: 'rf-all', correct: 'rf-c', wrong: 'rf-w', skip: 'rf-s' };
+  const colors = { all: 'fa', correct: 'fc', wrong: 'fw', skip: 'fs' };
+  Object.keys(ids).forEach(k => { document.getElementById(ids[k]).className = 'f-btn' + (type === k ? ' ' + colors[k] : ''); });
+
+  const list = document.getElementById('reviewList'); list.innerHTML = '';
+  questions.forEach((q, i) => { 
+    const ua = userAnswers[i] || {selected: -1, correct: q.answer, skipped: true};
     const isCorrect = !ua.skipped && ua.selected === q.answer;
     const isSkip = ua.skipped || ua.selected === -1;
     const isWrong = !isCorrect && !isSkip;
     
-    if(type==='correct'&&!isCorrect)return; if(type==='wrong'&&!isWrong)return; if(type==='skip'&&!isSkip)return;
-    const sc=isCorrect?'rc':isSkip?'rs':'rw', bc=isCorrect?'rb-c':isSkip?'rb-s':'rb-w', bt=isCorrect?'✓ Correct':isSkip?'— Skipped':'✗ Wrong';
+    if(type === 'correct' && !isCorrect) return; if(type === 'wrong' && !isWrong) return; if(type === 'skip' && !isSkip) return;
     
-    list.innerHTML += `<div class="card r-item ${sc}"><div class="ri-top"><div class="ri-num">Q${i+1}</div><span class="ri-badge ${bc}">${bt}</span></div><div class="ri-q">${q.q}</div><div class="ri-ans">${!isSkip&&ua.selected!==q.answer?`<div class="ri-ans-row"><span class="ri-ans-label">Your Ans:</span><span class="ri-ans-val w">${['A','B','C','D'][ua.selected]}</span></div>`:''}<div class="ri-ans-row"><span class="ri-ans-label">Correct:</span><span class="ri-ans-val c">${['A','B','C','D'][q.answer]}. ${q.options[q.answer]}</span></div></div>${q.explanation?`<div class="ri-expl">💡 ${q.explanation}</div>`:''}</div>`;
+    const sc = isCorrect ? 'rc' : isSkip ? 'rs' : 'rw';
+    const bc = isCorrect ? 'rb-c' : isSkip ? 'rb-s' : 'rb-w';
+    const bt = isCorrect ? '✓ Correct' : isSkip ? '— Skipped' : '✗ Wrong';
+    
+    let ansHTML = '';
+    if (!isSkip && ua.selected !== q.answer) { ansHTML += `<div class="ri-ans-row"><span class="ri-ans-label">Your Ans:</span><span class="ri-ans-val w">${['A','B','C','D'][ua.selected]}</span></div>`; }
+    ansHTML += `<div class="ri-ans-row"><span class="ri-ans-label">Correct:</span><span class="ri-ans-val c">${['A','B','C','D'][q.answer]}. ${q.options[q.answer]}</span></div>`;
+    let explHTML = q.explanation ? `<div class="ri-expl">💡 ${q.explanation}</div>` : '';
+
+    list.innerHTML += `<div class="card r-item ${sc}"><div class="ri-top"><div class="ri-num">Q${i+1}</div><span class="ri-badge ${bc}">${bt}</span></div><div class="ri-q">${q.q}</div><div class="ri-ans">${ansHTML}</div>${explHTML}</div>`;
   });
 }
 
