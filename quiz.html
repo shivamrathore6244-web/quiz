@@ -1,6 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+    // Aapka Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyAZozLE1yerbu4SmubWLtkOaoEMzTlJMto",
+      authDomain: "jrf1-9b59f.firebaseapp.com",
+      databaseURL: "https://jrf1-9b59f-default-rtdb.firebaseio.com",
+      projectId: "jrf1-9b59f",
+      storageBucket: "jrf1-9b59f.firebasestorage.app",
+      messagingSenderId: "734906958129",
+      appId: "1:734906958129:web:50953410fff51374b73010",
+      measurementId: "G-JPFNJWDXF4"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+        if (!user) {
+            // Agar koi direct link daal kar aayega, toh wapas index.html par chala jayega
+            window.location.replace("index.html");
+        }
+    });
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AgriExam Pro — Mock Test Series</title>
